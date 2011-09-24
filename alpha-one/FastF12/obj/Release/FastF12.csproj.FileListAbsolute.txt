@@ -1,0 +1,9 @@
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\bin\Release\FastF12.exe
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\bin\Release\FastF12.pdb
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\FastF12.Properties.Resources.resources
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\FastF12.csproj.GenerateResource.Cache
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\FastF12.exe
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\FastF12.pdb
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\FastF12.Main.resources
+C:\Users\Owner\Documents\Visual Studio 2008\Projects\FastF12\FastF12\obj\Release\FastF12.Login.resources
