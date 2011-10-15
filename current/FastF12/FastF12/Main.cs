@@ -16,11 +16,18 @@ namespace FastF12
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void newBtn_Click(object sender, EventArgs e)
         {
-            //Open Next Form and Keep Current Location
-            Wizard_Start wizard2 = new Wizard_Start();
-            wizard2.Show();       
+            // Open Wizard 
+            Wizard_Start wizard = new Wizard_Start(); // Need to Pass Empty Object Here
+            wizard.Show(); // Needs to Return a Value   
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            // Open Wizard 
+            Wizard_Start wizard = new Wizard_Start(); // Need to Pass Object Here
+            wizard.Show(); // Needs to Return a Value
         }
     }
 }

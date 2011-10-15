@@ -52,7 +52,7 @@ namespace FastF12
             this.newBtn.TabIndex = 0;
             this.toolTip1.SetToolTip(this.newBtn, "New");
             this.newBtn.UseVisualStyleBackColor = true;
-            this.newBtn.Click += new System.EventHandler(this.button1_Click);
+            this.newBtn.Click += new System.EventHandler(this.newBtn_Click);
             // 
             // editBtn
             // 
@@ -63,6 +63,7 @@ namespace FastF12
             this.editBtn.TabIndex = 1;
             this.toolTip1.SetToolTip(this.editBtn, "Edit");
             this.editBtn.UseVisualStyleBackColor = true;
+            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // trashBtn
             // 
