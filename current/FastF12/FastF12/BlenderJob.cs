@@ -6,48 +6,49 @@ using System.Text;
 namespace FastF12
 {
     // Global Enums
-    enum RenderType { Single, Animation };
+    public enum RenderType { Single, Animation };
         // (Single) - Single Frame Render
         // (Animation) - Muti-Frame Animation Render
 
     public class BlenderJob
     {
         // Basic Settings
-        private string ProjectName;
-        private RenderType RenderType;
-        private string sceneName;
+        public string ProjectName;
+        public RenderType RenderType;
+        public string sceneName;
 
-        private string blendPath;
-        private string outputFolder;
+        public string blendPath;
+        public string outputFolder;
 
         // Single Settings
-        private int selectedFrame;
+        public int selectedFrame;
 
         // Animation Settings 
-        private int currentFrame;
-        private int startFrame;
-        private int endFrame;
+        public int currentFrame;
+        public int startFrame;
+        public int endFrame;
 
         // File Options
-        private string[] RenderFormat = new string[22] { "TGA", "IRIS", "HAMX",
+        public string[] RenderFormat = new string[22] { "TGA", "IRIS", "HAMX",
             "JPEG", "MOVIE", "IRIZ", "RAWTGA", "AVIRAW", "AVIJPEG", 
             "PNG", "BMP", "FRAMESERVER", "HDR", "TIFF", "EXR",
             "MULTILAYER", "MPEG", "AVICODEC", "QUICKTIME", "CINEON",
             "DPX", "DDS" };
             // Note: All render formats from HDR onward are not supported
             // by Blender by default. 
-        private string fileExt = "JPEG"; //JPEG
-        private bool fileExtinName = false;
-            // Add the file extension to the end of the file.
-        private string fileNaming = "####";
+        public string fileExt = "JPEG"; //JPEG
+        public bool fileExtinName = false; // Not yet coded
+            // Add the file extension to the end of the file. Not added yet
+        public string fileNaming = "####";
 
         // Thread and Idle Settings
-        private bool idleRendering = false;
-        private bool threadsEnabled = false;
-        private byte threadCount = 0;
+        public bool idleRendering = false;
+        public int idleDelay = 1; // Delay in Minutes
+        public bool threadsEnabled = false;
+        public int threadCount = 0;
 
         // Misc Settings
-        private bool debugging = false;
+        public bool debugging = false;
 
         public BlenderJob()
         {
@@ -94,7 +95,7 @@ namespace FastF12
             str += " -o " + outputFolder;
             // Add File Naming and Type
             str += " -F " + this.fileExt + this.fileNaming;
-            str += " -x " + this.fileExtinName;
+            if (this.fileExtinName) { str += " -x " + this.fileExtinName; }
 
             //Add Threads(If Requested)
             if (this.threadsEnabled)
