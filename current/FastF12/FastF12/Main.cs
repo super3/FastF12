@@ -22,32 +22,27 @@ namespace FastF12
         }
 
         // Launches Wizard_Start.cs and Sets Completed Object to Reference.
-        private void start_wizard(ref BlenderJob tmpBlendJob)
+        private DialogResult start_wizard(ref BlenderJob tmpBlendJob)
         {
             // Open Wizard 
             Wizard_Start wizard = new Wizard_Start(ref tmpBlendJob); // Pass by reference. Yay!
 
             // Show wizard as a modal dialog and determine if DialogResult = OK.
-            if (wizard.ShowDialog(this) == DialogResult.OK)
+            DialogResult result = wizard.ShowDialog(this);
+            if (result == DialogResult.OK)
             {
-                // Get Back Passed Object
+                // Set Passed Object
                 tmpBlendJob = wizard.returnJob;
             }
-            else
-            {
-                // It was cancelled. 
-            }
-
-            // Clean-up and Return Location
+            
+            // Clean-up and Return
             wizard.Dispose();
+            return result;
         }
 
         // Launches Wizard_End.cs and Sets Completed Object to Reference.
-        private bool end_wizard(ref BlenderJob tmpBlendJob)
+        private DialogResult end_wizard(ref BlenderJob tmpBlendJob)
         {
-            // If the user hit the back button
-            bool backButton = false;
-
             // Open Wizard 
             Wizard_End wizard = new Wizard_End(ref tmpBlendJob); // Pass by reference. Yay!
 
@@ -55,37 +50,48 @@ namespace FastF12
             DialogResult result = wizard.ShowDialog(this);
             if (result == DialogResult.OK)
             {
-                // Get Back Passed Object
+                // Set Passed Object
                 tmpBlendJob = wizard.returnJob;
-            }
-            else if(result == DialogResult.Retry) {
-                backButton = true;
-            }
-            else
-            {
-                // It was cancelled. 
             }
 
             // Clean-up and Return
             wizard.Dispose();
-            return backButton;
+            return result;
         }
 
         private void newBtn_Click(object sender, EventArgs e)
         {
-            // New BlenderJob Object
+            // New BlenderJob Object and DialogResults for Option Checking
             BlenderJob tmpBlend = new BlenderJob();
+            DialogResult start_wiz = new DialogResult();
+            DialogResult end_wiz = new DialogResult();
 
             // Launch Wizard_Start and Return Filled Object
             // Repeats if user hits back button on Wizard_End.
+            // Cancels everything if user hits cancel button on either form.
             do
             {
-                start_wizard(ref tmpBlend);
-            } while (end_wizard(ref tmpBlend));
+                start_wiz = start_wizard(ref tmpBlend);
+                if (start_wiz == DialogResult.Cancel)
+                {
+                    // If Cancelled Break Loop
+                    break;
+                }
+                end_wiz = end_wizard(ref tmpBlend);
+                if (end_wiz == DialogResult.Cancel)
+                {
+                    // If Cancelled Break Loop and Set Object to Null
+                    break;
+                }
+            } while (start_wiz == DialogResult.Retry || end_wiz == DialogResult.Retry);
 
-            // Add to GUI and Loaded BlenderJobs
-            allJobs.Add(tmpBlend);
-            listBox1.Items.Add(tmpBlend.ProjectName);
+
+            // Add to GUI and Loaded BlenderJobs if no cancel has been called
+            if (start_wiz != DialogResult.Cancel && end_wiz != DialogResult.Cancel)
+            {
+                allJobs.Add(tmpBlend);
+                listBox1.Items.Add(tmpBlend.ProjectName);
+            }
         }
     }
 }
