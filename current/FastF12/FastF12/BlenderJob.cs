@@ -116,5 +116,10 @@ namespace FastF12
             // Return command line arguments
             return str;
         }
+
+        public override string ToString()
+        {
+            return ProjectName;
+        }
     }
 }

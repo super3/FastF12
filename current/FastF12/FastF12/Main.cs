@@ -12,10 +12,6 @@ namespace FastF12
 {
     public partial class Main : Form
     {
-        // All currently loaded BlenderJobs.
-        // Syncs with listBox1.
-        public ArrayList allJobs = new ArrayList();
-
         public Main()
         {
             InitializeComponent();
@@ -59,10 +55,10 @@ namespace FastF12
             return result;
         }
 
-        private void newBtn_Click(object sender, EventArgs e)
+        // Edit Passed BlenderJob Object. If cancelled return false
+        private bool edit_BlendJob(ref BlenderJob tmpBlend)
         {
             // New BlenderJob Object and DialogResults for Option Checking
-            BlenderJob tmpBlend = new BlenderJob();
             DialogResult start_wiz = new DialogResult();
             DialogResult end_wiz = new DialogResult();
 
@@ -74,23 +70,69 @@ namespace FastF12
                 start_wiz = start_wizard(ref tmpBlend);
                 if (start_wiz == DialogResult.Cancel)
                 {
-                    // If Cancelled Break Loop
-                    break;
+                    return false;
                 }
                 end_wiz = end_wizard(ref tmpBlend);
                 if (end_wiz == DialogResult.Cancel)
                 {
-                    // If Cancelled Break Loop and Set Object to Null
-                    break;
+                    return false;
                 }
             } while (start_wiz == DialogResult.Retry || end_wiz == DialogResult.Retry);
+            return true;
+        }
 
+        private void newBtn_Click(object sender, EventArgs e)
+        {
+            // New BlenderJob Object and DialogResults for Option Checking
+            BlenderJob tmpBlend = new BlenderJob();
 
             // Add to GUI and Loaded BlenderJobs if no cancel has been called
-            if (start_wiz != DialogResult.Cancel && end_wiz != DialogResult.Cancel)
+            if (edit_BlendJob(ref tmpBlend))
             {
-                allJobs.Add(tmpBlend);
-                listBox1.Items.Add(tmpBlend.ProjectName);
+                listBox1.Items.Add(tmpBlend);
+            }
+        }
+
+        private void trashBtn_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                // Make sure user doesn't accidentally erase a BlenderJob
+                DialogResult dialogResult = MessageBox.Show("Delete this BlenderJob?", "Delete?", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    listBox1.Items.Remove(listBox1.SelectedItem);
+                }
+            }
+        }
+
+        private void UpdateListBoxItem(ListBox lb, object item)
+        {
+            int index = lb.Items.IndexOf(item);
+            int currIndex = lb.SelectedIndex;
+            lb.BeginUpdate();
+            try
+            {
+                lb.ClearSelected();
+                lb.Items[index] = item;
+                lb.SelectedIndex = currIndex;
+            }
+            finally
+            {
+                lb.EndUpdate();
+            }
+        }
+
+        private void editBtn_Click(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                // Edit Selected BlenderJob
+                BlenderJob editJob = (BlenderJob)listBox1.SelectedItem;
+                if (edit_BlendJob(ref editJob))
+                {
+                    UpdateListBoxItem(listBox1, editJob);
+                }
             }
         }
     }
