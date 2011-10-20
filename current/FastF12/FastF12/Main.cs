@@ -43,24 +43,32 @@ namespace FastF12
         }
 
         // Launches Wizard_End.cs and Sets Completed Object to Reference.
-        private void end_wizard(ref BlenderJob tmpBlendJob)
+        private bool end_wizard(ref BlenderJob tmpBlendJob)
         {
+            // If the user hit the back button
+            bool backButton = false;
+
             // Open Wizard 
             Wizard_End wizard = new Wizard_End(ref tmpBlendJob); // Pass by reference. Yay!
 
             // Show wizard as a modal dialog and determine if DialogResult = OK.
-            if (wizard.ShowDialog(this) == DialogResult.OK)
+            DialogResult result = wizard.ShowDialog(this);
+            if (result == DialogResult.OK)
             {
                 // Get Back Passed Object
                 tmpBlendJob = wizard.returnJob;
+            }
+            else if(result == DialogResult.Retry) {
+                backButton = true;
             }
             else
             {
                 // It was cancelled. 
             }
 
-            // Clean-up
+            // Clean-up and Return
             wizard.Dispose();
+            return backButton;
         }
 
         private void newBtn_Click(object sender, EventArgs e)
@@ -69,8 +77,11 @@ namespace FastF12
             BlenderJob tmpBlend = new BlenderJob();
 
             // Launch Wizard_Start and Return Filled Object
-            start_wizard(ref tmpBlend);
-            end_wizard(ref tmpBlend);
+            // Repeats if user hits back button on Wizard_End.
+            do
+            {
+                start_wizard(ref tmpBlend);
+            } while (end_wizard(ref tmpBlend));
 
             // Add to GUI and Loaded BlenderJobs
             allJobs.Add(tmpBlend);
