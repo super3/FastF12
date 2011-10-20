@@ -12,6 +12,8 @@ namespace FastF12
 {
     public partial class Main : Form
     {
+        // All currently loaded BlenderJobs.
+        // Syncs with listBox1.
         public ArrayList allJobs = new ArrayList();
 
         public Main()
@@ -19,37 +21,38 @@ namespace FastF12
             InitializeComponent();
         }
 
-        private void newBtn_Click(object sender, EventArgs e)
+        // Launches Wizard_Start.cs and gets back completed object.
+        private void start_wizard(ref BlenderJob tmpBlendJob)
         {
-            // Temporary BlenderJob Object
-            BlenderJob tmpBlendJob = new BlenderJob();
-
             // Open Wizard 
-            Wizard_Start wizard_start = new Wizard_Start(ref tmpBlendJob); // Pass by reference. Yay!
+            Wizard_Start wizard = new Wizard_Start(ref tmpBlendJob); // Pass by reference. Yay!
 
             // Show wizard as a modal dialog and determine if DialogResult = OK.
-            if (wizard_start.ShowDialog(this) == DialogResult.OK)
+            if (wizard.ShowDialog(this) == DialogResult.OK)
             {
                 // Get Back Passed Object
-                tmpBlendJob = wizard_start.returnJob;
-
-                // Add To List
-                allJobs.Add(tmpBlendJob);
-                listBox1.Items.Add(tmpBlendJob.ProjectName);
-
-                // Debug
-                MessageBox.Show(tmpBlendJob.Run()); 
+                tmpBlendJob = wizard.returnJob;
             }
             else
             {
                 // It was cancelled. 
             }
-            wizard_start.Dispose();
+
+            // Clean-up
+            wizard.Dispose();
         }
 
-        private void editBtn_Click(object sender, EventArgs e)
+        private void newBtn_Click(object sender, EventArgs e)
         {
-            // Same as newBtn
+            // New BlenderJob Object
+            BlenderJob tmpBlend = new BlenderJob();
+
+            // Launch Wizard_Start and Return Filled Object
+            start_wizard(ref tmpBlend);
+
+            // Add to GUI and Loaded BlenderJobs
+            allJobs.Add(tmpBlend);
+            listBox1.Items.Add(tmpBlend.ProjectName);
         }
     }
 }

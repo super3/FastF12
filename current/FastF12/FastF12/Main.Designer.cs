@@ -63,7 +63,6 @@ namespace FastF12
             this.editBtn.TabIndex = 1;
             this.toolTip1.SetToolTip(this.editBtn, "Edit");
             this.editBtn.UseVisualStyleBackColor = true;
-            this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // trashBtn
             // 
