@@ -243,11 +243,6 @@ namespace FastF12
             this.numericOnly(ref e);
         }
 
-        private void txtIdle_Leave(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtThread_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Numeric Only Input
@@ -256,30 +251,51 @@ namespace FastF12
 
         private void btnFinish_Click(object sender, EventArgs e)
         {
-            // Set Form Controls to Object 
-            if ( checkIdle.Checked )
-            {
-                newJob.idleRendering = true;
-                newJob.idleDelay = Int32.Parse(txtIdle.Text);
-            }
-            if ( checkThread.Checked )
-            {
-                newJob.threadsEnabled = true;
-                newJob.threadCount = cThread.SelectedIndex;
-            }
-            if ( checkDebug.Checked )
-            {
-                newJob.debugging = true;
-            }
-            newJob.fileNaming = txtName.Text;
-            if (rStandard.Checked)
-                newJob.fileExt = cExtStandard.Text;
-            else
-                newJob.fileExt = cExtExtra.Text;
+            // Check to see if values are valid
+            bool validValues = true;
 
-            // Close Form and Pass Control
-            this.DialogResult = DialogResult.OK;
-            this.Close();
+            // Validate Idle Time
+            if (Int32.Parse(txtIdle.Text) == 0)
+            {
+                MessageBox.Show("Sorry. Idle time must be at least 1 minute.");
+                validValues = false;
+            }
+            if (Int32.Parse(txtIdle.Text) > 120)
+            {
+                MessageBox.Show("Sorry. Max idle time is 120 minutes.");
+                validValues = false;
+            }
+
+            // TODO: Validate File Naming Field
+            
+                // If values are valid pass to object, return DialogResult.OK, and close form
+            if (validValues)
+            {
+                // Set Form Controls to Object 
+                if ( checkIdle.Checked )
+                {
+                    newJob.idleRendering = true;
+                    newJob.idleDelay = Int32.Parse(txtIdle.Text);
+                }
+                if ( checkThread.Checked )
+                {
+                    newJob.threadsEnabled = true;
+                    newJob.threadCount = cThread.SelectedIndex;
+                }
+                if ( checkDebug.Checked )
+                {
+                    newJob.debugging = true;
+                }
+                newJob.fileNaming = txtName.Text;
+                if (rStandard.Checked)
+                    newJob.fileExt = cExtStandard.Text;
+                else
+                    newJob.fileExt = cExtExtra.Text;
+
+                // Close Form and Pass Control
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }

@@ -63,7 +63,7 @@
             this.btnCancel.Location = new System.Drawing.Point(447, 377);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 0;
+            this.btnCancel.TabIndex = 14;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -73,7 +73,7 @@
             this.btnNext.Location = new System.Drawing.Point(342, 377);
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 1;
+            this.btnNext.TabIndex = 13;
             this.btnNext.Text = "Next >";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
@@ -84,7 +84,7 @@
             this.bnBack.Location = new System.Drawing.Point(262, 377);
             this.bnBack.Name = "bnBack";
             this.bnBack.Size = new System.Drawing.Size(75, 23);
-            this.bnBack.TabIndex = 2;
+            this.bnBack.TabIndex = 12;
             this.bnBack.Text = "< Back";
             this.bnBack.UseVisualStyleBackColor = true;
             // 
@@ -107,16 +107,17 @@
             this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(115, 13);
-            this.label1.TabIndex = 4;
+            this.label1.TabIndex = 0;
             this.label1.Text = "General Settings";
             // 
             // txtName
             // 
             this.txtName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtName.Location = new System.Drawing.Point(95, 110);
+            this.txtName.MaxLength = 40;
             this.txtName.Name = "txtName";
             this.txtName.Size = new System.Drawing.Size(421, 22);
-            this.txtName.TabIndex = 5;
+            this.txtName.TabIndex = 1;
             this.txtName.Text = "Untitled 1";
             // 
             // label2
@@ -137,7 +138,7 @@
             this.border2.Size = new System.Drawing.Size(505, 13);
             this.border2.TabIndex = 9;
             this.border2.Text = "_________________________________________________________________________________" +
-                "__";
+    "__";
             // 
             // border
             // 
@@ -148,7 +149,7 @@
             this.border.Size = new System.Drawing.Size(547, 13);
             this.border.TabIndex = 10;
             this.border.Text = "_________________________________________________________________________________" +
-                "_________";
+    "_________";
             // 
             // label3
             // 
@@ -158,7 +159,7 @@
             this.label3.Location = new System.Drawing.Point(23, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 13);
-            this.label3.TabIndex = 12;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Render Job Setup";
             // 
             // label5
@@ -185,7 +186,7 @@
             this.txtOutput.Location = new System.Drawing.Point(18, 315);
             this.txtOutput.Name = "txtOutput";
             this.txtOutput.Size = new System.Drawing.Size(409, 22);
-            this.txtOutput.TabIndex = 21;
+            this.txtOutput.TabIndex = 10;
             this.txtOutput.Text = "C:\\tmp\\";
             // 
             // btnOutput
@@ -194,7 +195,7 @@
             this.btnOutput.Location = new System.Drawing.Point(433, 314);
             this.btnOutput.Name = "btnOutput";
             this.btnOutput.Size = new System.Drawing.Size(83, 23);
-            this.btnOutput.TabIndex = 20;
+            this.btnOutput.TabIndex = 11;
             this.btnOutput.Text = "Browse...";
             this.btnOutput.UseVisualStyleBackColor = true;
             this.btnOutput.Click += new System.EventHandler(this.btnOutput_Click);
@@ -205,14 +206,14 @@
             this.txtBlend.Location = new System.Drawing.Point(18, 263);
             this.txtBlend.Name = "txtBlend";
             this.txtBlend.Size = new System.Drawing.Size(409, 22);
-            this.txtBlend.TabIndex = 18;
+            this.txtBlend.TabIndex = 8;
             // 
             // btnBlend
             // 
             this.btnBlend.Location = new System.Drawing.Point(433, 262);
             this.btnBlend.Name = "btnBlend";
             this.btnBlend.Size = new System.Drawing.Size(83, 23);
-            this.btnBlend.TabIndex = 17;
+            this.btnBlend.TabIndex = 9;
             this.btnBlend.Text = "Browse...";
             this.btnBlend.UseVisualStyleBackColor = true;
             this.btnBlend.Click += new System.EventHandler(this.btnBlend_Click);
@@ -224,7 +225,7 @@
             this.groupBox1.Location = new System.Drawing.Point(122, 150);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(100, 84);
-            this.groupBox1.TabIndex = 23;
+            this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Render Type";
             // 
@@ -234,7 +235,7 @@
             this.rAnimation.Location = new System.Drawing.Point(12, 43);
             this.rAnimation.Name = "rAnimation";
             this.rAnimation.Size = new System.Drawing.Size(71, 17);
-            this.rAnimation.TabIndex = 1;
+            this.rAnimation.TabIndex = 4;
             this.rAnimation.Text = "Animation";
             this.rAnimation.UseVisualStyleBackColor = true;
             // 
@@ -245,7 +246,7 @@
             this.rSingle.Location = new System.Drawing.Point(12, 20);
             this.rSingle.Name = "rSingle";
             this.rSingle.Size = new System.Drawing.Size(86, 17);
-            this.rSingle.TabIndex = 0;
+            this.rSingle.TabIndex = 3;
             this.rSingle.TabStop = true;
             this.rSingle.Text = "Single Image";
             this.rSingle.UseVisualStyleBackColor = true;
@@ -255,9 +256,10 @@
             // 
             this.txtStart.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtStart.Location = new System.Drawing.Point(7, 19);
+            this.txtStart.MaxLength = 5;
             this.txtStart.Name = "txtStart";
             this.txtStart.Size = new System.Drawing.Size(171, 20);
-            this.txtStart.TabIndex = 2;
+            this.txtStart.TabIndex = 6;
             this.txtStart.Text = "Start... (Default is 1)";
             this.txtStart.Enter += new System.EventHandler(this.txtStart_Enter);
             this.txtStart.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtStart_KeyPress);
@@ -271,7 +273,7 @@
             this.groupBox3.Location = new System.Drawing.Point(228, 150);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(184, 84);
-            this.groupBox3.TabIndex = 25;
+            this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Frame(s)";
             // 
@@ -280,9 +282,10 @@
             this.txtEnd.Enabled = false;
             this.txtEnd.ForeColor = System.Drawing.SystemColors.WindowFrame;
             this.txtEnd.Location = new System.Drawing.Point(6, 58);
+            this.txtEnd.MaxLength = 5;
             this.txtEnd.Name = "txtEnd";
             this.txtEnd.Size = new System.Drawing.Size(172, 20);
-            this.txtEnd.TabIndex = 5;
+            this.txtEnd.TabIndex = 7;
             this.txtEnd.Text = "End...";
             this.txtEnd.Enter += new System.EventHandler(this.txtEnd_Enter);
             this.txtEnd.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtEnd_KeyPress);

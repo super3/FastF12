@@ -72,7 +72,7 @@
             this.label3.Location = new System.Drawing.Point(23, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(108, 13);
-            this.label3.TabIndex = 17;
+            this.label3.TabIndex = 0;
             this.label3.Text = "Render Job Setup";
             // 
             // border
@@ -94,7 +94,7 @@
             this.label1.Location = new System.Drawing.Point(12, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 13);
-            this.label1.TabIndex = 14;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Advanced Settings";
             // 
             // splitter1
@@ -124,7 +124,7 @@
             this.bnBack.Location = new System.Drawing.Point(262, 377);
             this.bnBack.Name = "bnBack";
             this.bnBack.Size = new System.Drawing.Size(75, 23);
-            this.bnBack.TabIndex = 20;
+            this.bnBack.TabIndex = 15;
             this.bnBack.Text = "< Back";
             this.bnBack.UseVisualStyleBackColor = true;
             this.bnBack.Click += new System.EventHandler(this.bnBack_Click);
@@ -134,7 +134,7 @@
             this.btnFinish.Location = new System.Drawing.Point(342, 377);
             this.btnFinish.Name = "btnFinish";
             this.btnFinish.Size = new System.Drawing.Size(75, 23);
-            this.btnFinish.TabIndex = 19;
+            this.btnFinish.TabIndex = 16;
             this.btnFinish.Text = "Finish";
             this.btnFinish.UseVisualStyleBackColor = true;
             this.btnFinish.Click += new System.EventHandler(this.btnFinish_Click);
@@ -144,7 +144,7 @@
             this.btnCancel.Location = new System.Drawing.Point(447, 377);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 18;
+            this.btnCancel.TabIndex = 17;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
@@ -169,7 +169,7 @@
             this.cExtStandard.Location = new System.Drawing.Point(91, 18);
             this.cExtStandard.Name = "cExtStandard";
             this.cExtStandard.Size = new System.Drawing.Size(161, 21);
-            this.cExtStandard.TabIndex = 22;
+            this.cExtStandard.TabIndex = 5;
             this.cExtStandard.SelectedIndexChanged += new System.EventHandler(this.cExtStandard_SelectedIndexChanged);
             // 
             // checkIdle
@@ -178,7 +178,7 @@
             this.checkIdle.Location = new System.Drawing.Point(69, 95);
             this.checkIdle.Name = "checkIdle";
             this.checkIdle.Size = new System.Drawing.Size(394, 17);
-            this.checkIdle.TabIndex = 23;
+            this.checkIdle.TabIndex = 1;
             this.checkIdle.Text = "Idle Rendering - Only render job when the computer is idle for            minute(" +
     "s).";
             this.checkIdle.UseVisualStyleBackColor = true;
@@ -188,10 +188,11 @@
             // 
             this.txtIdle.Enabled = false;
             this.txtIdle.Location = new System.Drawing.Point(383, 93);
+            this.txtIdle.MaxLength = 3;
             this.txtIdle.Name = "txtIdle";
             this.txtIdle.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.txtIdle.Size = new System.Drawing.Size(26, 20);
-            this.txtIdle.TabIndex = 24;
+            this.txtIdle.TabIndex = 2;
             this.txtIdle.Text = "1";
             this.txtIdle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdle_KeyPress);
             // 
@@ -205,7 +206,7 @@
             this.groupBox1.Location = new System.Drawing.Point(12, 118);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(508, 63);
-            this.groupBox1.TabIndex = 25;
+            this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "File Extensions";
             // 
@@ -224,7 +225,7 @@
             this.rExtra.Location = new System.Drawing.Point(273, 19);
             this.rExtra.Name = "rExtra";
             this.rExtra.Size = new System.Drawing.Size(56, 17);
-            this.rExtra.TabIndex = 27;
+            this.rExtra.TabIndex = 6;
             this.rExtra.Text = "Extra*:";
             this.rExtra.UseVisualStyleBackColor = true;
             // 
@@ -247,7 +248,7 @@
             this.cExtExtra.Location = new System.Drawing.Point(335, 18);
             this.cExtExtra.Name = "cExtExtra";
             this.cExtExtra.Size = new System.Drawing.Size(161, 21);
-            this.cExtExtra.TabIndex = 26;
+            this.cExtExtra.TabIndex = 7;
             this.cExtExtra.SelectedIndexChanged += new System.EventHandler(this.cExtExtra_SelectedIndexChanged);
             // 
             // rStandard
@@ -257,7 +258,7 @@
             this.rStandard.Location = new System.Drawing.Point(14, 19);
             this.rStandard.Name = "rStandard";
             this.rStandard.Size = new System.Drawing.Size(71, 17);
-            this.rStandard.TabIndex = 25;
+            this.rStandard.TabIndex = 4;
             this.rStandard.TabStop = true;
             this.rStandard.Text = "Standard:";
             this.rStandard.UseVisualStyleBackColor = true;
@@ -272,7 +273,7 @@
             this.groupBox2.Location = new System.Drawing.Point(12, 187);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(508, 65);
-            this.groupBox2.TabIndex = 29;
+            this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "File Naming";
             // 
@@ -312,7 +313,7 @@
             this.txtName.Name = "txtName";
             this.txtName.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.txtName.Size = new System.Drawing.Size(140, 20);
-            this.txtName.TabIndex = 0;
+            this.txtName.TabIndex = 9;
             this.txtName.Text = "####";
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             // 
@@ -324,7 +325,7 @@
             this.groupBox3.Location = new System.Drawing.Point(15, 258);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(508, 48);
-            this.groupBox3.TabIndex = 30;
+            this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Processing Threads";
             // 
@@ -346,7 +347,7 @@
             this.cThread.Location = new System.Drawing.Point(122, 18);
             this.cThread.Name = "cThread";
             this.cThread.Size = new System.Drawing.Size(33, 21);
-            this.cThread.TabIndex = 31;
+            this.cThread.TabIndex = 12;
             // 
             // checkThread
             // 
@@ -354,7 +355,7 @@
             this.checkThread.Location = new System.Drawing.Point(11, 22);
             this.checkThread.Name = "checkThread";
             this.checkThread.Size = new System.Drawing.Size(101, 17);
-            this.checkThread.TabIndex = 2;
+            this.checkThread.TabIndex = 11;
             this.checkThread.Text = "Enable Threads";
             this.checkThread.UseVisualStyleBackColor = true;
             this.checkThread.CheckedChanged += new System.EventHandler(this.checkThread_CheckedChanged);
@@ -383,7 +384,7 @@
             this.groupBox4.Location = new System.Drawing.Point(15, 313);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(507, 38);
-            this.groupBox4.TabIndex = 32;
+            this.groupBox4.TabIndex = 13;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Debugging";
             // 
@@ -393,7 +394,7 @@
             this.checkDebug.Location = new System.Drawing.Point(196, 12);
             this.checkDebug.Name = "checkDebug";
             this.checkDebug.Size = new System.Drawing.Size(114, 17);
-            this.checkDebug.TabIndex = 32;
+            this.checkDebug.TabIndex = 14;
             this.checkDebug.Text = "Enable Debugging";
             this.checkDebug.UseVisualStyleBackColor = true;
             // 

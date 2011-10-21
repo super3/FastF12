@@ -56,7 +56,7 @@ namespace FastF12
             this.ProjectName = "Untitled";
             this.RenderType = RenderType.Single;
 
-            this.blendPath = "";
+            this.blendPath = "C:\\Users\\Shawn\\Desktop\\kitchen.blend"; // For Testing Only
             this.outputFolder = "C:\\tmp\\";
 
              // Single Settings
