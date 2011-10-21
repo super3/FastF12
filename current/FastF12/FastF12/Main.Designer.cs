@@ -92,6 +92,7 @@ namespace FastF12
             this.runBtn.TabIndex = 5;
             this.toolTip1.SetToolTip(this.runBtn, "Run/Pause");
             this.runBtn.UseVisualStyleBackColor = true;
+            this.runBtn.Click += new System.EventHandler(this.runBtn_Click);
             // 
             // settingsBtn
             // 

@@ -5,8 +5,15 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Threading;
+// Shell Scripting
+using System.Diagnostics;
+// Shell Scripting
+using System.Runtime.InteropServices;
+// ObjectsArrays
 
 namespace FastF12
 {
@@ -159,6 +166,34 @@ namespace FastF12
                 runBtn.Enabled = true;
                 stopBtn.Enabled = true;
             }
+        }
+
+        private void runBtn_Click(object sender, EventArgs e)
+        {
+            // Change Icon
+            runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause); 
+
+            // A CMD Shell and Blender Object
+            ProcessStartInfo cmd;
+            BlenderJob job = (BlenderJob)listBox1.SelectedItem;
+
+            //Shell windows settings and arguments 
+            cmd = new ProcessStartInfo("C:\\Users\\Shawn\\Desktop\\blender-2.60-windows64\\blender.exe", job.Run());
+            cmd.UseShellExecute = false;
+            cmd.ErrorDialog = true;
+            cmd.CreateNoWindow = true;
+            cmd.RedirectStandardOutput = true;
+
+            //Read and process shell output
+            Process p = Process.Start(cmd);
+
+            // Output for Debug
+            StreamReader oReader2 = p.StandardOutput;
+            while (!oReader2.EndOfStream)
+            {
+                MessageBox.Show(oReader2.ReadLine());
+            }
+            oReader2.Close();
         }
     }
 }
