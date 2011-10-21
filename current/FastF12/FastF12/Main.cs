@@ -135,5 +135,26 @@ namespace FastF12
                 }
             }
         }
+
+        private void settingsBtn_Click(object sender, EventArgs e)
+        {
+            // Launch Settings Form
+            Settings settings = new Settings();
+            settings.Show();
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                editBtn.Enabled = true;
+                trashBtn.Enabled = true;
+            }
+            else
+            {
+                editBtn.Enabled = false;
+                trashBtn.Enabled = false;
+            }
+        }
     }
 }

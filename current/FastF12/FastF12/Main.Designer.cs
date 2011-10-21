@@ -49,29 +49,31 @@ namespace FastF12
             this.newBtn.Location = new System.Drawing.Point(437, 12);
             this.newBtn.Name = "newBtn";
             this.newBtn.Size = new System.Drawing.Size(45, 45);
-            this.newBtn.TabIndex = 0;
+            this.newBtn.TabIndex = 2;
             this.toolTip1.SetToolTip(this.newBtn, "New");
             this.newBtn.UseVisualStyleBackColor = true;
             this.newBtn.Click += new System.EventHandler(this.newBtn_Click);
             // 
             // editBtn
             // 
+            this.editBtn.Enabled = false;
             this.editBtn.Image = global::FastF12.Properties.Resources.edit;
             this.editBtn.Location = new System.Drawing.Point(437, 63);
             this.editBtn.Name = "editBtn";
             this.editBtn.Size = new System.Drawing.Size(45, 45);
-            this.editBtn.TabIndex = 1;
+            this.editBtn.TabIndex = 3;
             this.toolTip1.SetToolTip(this.editBtn, "Edit");
             this.editBtn.UseVisualStyleBackColor = true;
             this.editBtn.Click += new System.EventHandler(this.editBtn_Click);
             // 
             // trashBtn
             // 
+            this.trashBtn.Enabled = false;
             this.trashBtn.Image = global::FastF12.Properties.Resources.delete;
             this.trashBtn.Location = new System.Drawing.Point(437, 114);
             this.trashBtn.Name = "trashBtn";
             this.trashBtn.Size = new System.Drawing.Size(45, 45);
-            this.trashBtn.TabIndex = 2;
+            this.trashBtn.TabIndex = 4;
             this.toolTip1.SetToolTip(this.trashBtn, "Trash");
             this.trashBtn.UseVisualStyleBackColor = true;
             this.trashBtn.Click += new System.EventHandler(this.trashBtn_Click);
@@ -82,7 +84,8 @@ namespace FastF12
             this.listBox1.Location = new System.Drawing.Point(12, 12);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(419, 225);
-            this.listBox1.TabIndex = 3;
+            this.listBox1.TabIndex = 1;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // settingsBtn
             // 
@@ -90,9 +93,10 @@ namespace FastF12
             this.settingsBtn.Location = new System.Drawing.Point(437, 192);
             this.settingsBtn.Name = "settingsBtn";
             this.settingsBtn.Size = new System.Drawing.Size(45, 45);
-            this.settingsBtn.TabIndex = 4;
+            this.settingsBtn.TabIndex = 5;
             this.toolTip1.SetToolTip(this.settingsBtn, "Settings");
             this.settingsBtn.UseVisualStyleBackColor = true;
+            this.settingsBtn.Click += new System.EventHandler(this.settingsBtn_Click);
             // 
             // statusStrip1
             // 
