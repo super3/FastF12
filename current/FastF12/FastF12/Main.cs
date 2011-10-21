@@ -149,11 +149,15 @@ namespace FastF12
             {
                 editBtn.Enabled = true;
                 trashBtn.Enabled = true;
+                runBtn.Enabled = true;
+                stopBtn.Enabled = true;
             }
             else
             {
                 editBtn.Enabled = false;
                 trashBtn.Enabled = false;
+                runBtn.Enabled = true;
+                stopBtn.Enabled = true;
             }
         }
     }
