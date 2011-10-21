@@ -84,7 +84,7 @@
             this.border.Size = new System.Drawing.Size(547, 13);
             this.border.TabIndex = 15;
             this.border.Text = "_________________________________________________________________________________" +
-                "_________";
+    "_________";
             // 
             // label1
             // 
@@ -117,7 +117,7 @@
             this.border2.Size = new System.Drawing.Size(505, 13);
             this.border2.TabIndex = 21;
             this.border2.Text = "_________________________________________________________________________________" +
-                "__";
+    "__";
             // 
             // bnBack
             // 
@@ -180,7 +180,7 @@
             this.checkIdle.Size = new System.Drawing.Size(394, 17);
             this.checkIdle.TabIndex = 23;
             this.checkIdle.Text = "Idle Rendering - Only render job when the computer is idle for            minute(" +
-                "s).";
+    "s).";
             this.checkIdle.UseVisualStyleBackColor = true;
             this.checkIdle.CheckedChanged += new System.EventHandler(this.checkIdle_CheckedChanged);
             // 
@@ -293,7 +293,7 @@
             this.label5.Size = new System.Drawing.Size(411, 13);
             this.label5.TabIndex = 2;
             this.label5.Text = "The # characters are replaced by the frame number, and used to define zero paddin" +
-                "g.";
+    "g.";
             // 
             // lbExtExample
             // 

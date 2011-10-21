@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -11,6 +12,7 @@ namespace FastF12
 {
     public partial class Wizard_Start : Form
     {
+        // An editable BlenderJob object and Return
         private BlenderJob newJob = new BlenderJob();
         public BlenderJob returnJob
         {
@@ -86,18 +88,31 @@ namespace FastF12
             if (txtEnd.Text == "") { txtEnd.Text = "End..."; }
         }
 
+        // Numeric Only Input
+        public void numericOnly(ref KeyPressEventArgs e)
+        {
+            if ((e.KeyChar < '0' || e.KeyChar > '9') && (e.KeyChar != '\b'))
+            {
+                // Dunno to include alert or not
+                // MessageBox.Show("Only numbers allowed");
+                e.Handled = true;
+            }
+            else
+            {
+                e.Handled = false;
+            }
+        }
+
         private void txtStart_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //Numeric Only Input
-            int isNumber = 0;
-            e.Handled = !int.TryParse(e.KeyChar.ToString(), out isNumber);
+            // Numeric Only Input
+            this.numericOnly(ref e);
         }
 
         private void txtEnd_KeyPress(object sender, KeyPressEventArgs e)
         {
-            //Numeric Only Input
-            int isNumber = 0;
-            e.Handled = !int.TryParse(e.KeyChar.ToString(), out isNumber);
+            // Numeric Only Input
+            this.numericOnly(ref e);
         }
 
         private void rSingle_CheckedChanged(object sender, EventArgs e)
@@ -106,28 +121,128 @@ namespace FastF12
             else { txtEnd.Enabled = true; }
         }
 
+        // http://stackoverflow.com/questions/1046740/how-to-validate-a-string-to-only-allow-alphanumeric-characters-in-it-regex
+        public static bool IsAlphaNum(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+                return false;
+
+            for (int i = 0; i < str.Length; i++)
+            {
+                if (!(char.IsLetter(str[i])) && (!(char.IsNumber(str[i]))))
+                    return false;
+            }
+
+            return true;
+        }
+
         private void btnNext_Click(object sender, EventArgs e)
         {
-            // Pass values back to object
-            newJob.ProjectName = txtName.Text;
-            if (rSingle.Checked == true)
-            {
-                newJob.RenderType = RenderType.Single;
-                newJob.startFrame = Int32.Parse(txtStart.Text);
-            }
-            else
-            {
-                newJob.RenderType = RenderType.Animation;
-                newJob.startFrame = Int32.Parse(txtStart.Text);
-                newJob.endFrame = Int32.Parse(txtEnd.Text);
-            }
-            newJob.blendPath = txtBlend.Text;
-            newJob.outputFolder = txtOutput.Text;
+            // Check to see if values are valid
+            bool validValues = true;
 
-            // Close Form and Pass Control
-            this.DialogResult = DialogResult.OK;
-            this.Close();
-            
+            // Validate length and alphanumerics of Project Name field
+            if (txtName.Text == "")
+            {
+                MessageBox.Show("You can't leave the Project Name blank.");
+                validValues = false;
+            }
+            else if (txtName.Text.Length > 40)
+            {
+                MessageBox.Show("Project name too long.");
+                validValues = false;
+            }
+            else if (!IsAlphaNum(txtName.Text))
+            {
+                MessageBox.Show("Only alphanumeric characters and underscores allowed in Project Name.");
+                validValues = false;
+            }
+
+            // Validate Frame Start and Frame End
+            // GUI Code already checks for only numbers in txtStart and txtEnd
+            if (rSingle.Checked && txtStart.Text == "")
+            {
+                MessageBox.Show("Sorry. You can't leave the Start Frame field blank.");
+                validValues = false;
+            }
+            else if (Int32.Parse(txtStart.Text) <= 0)
+            {
+                MessageBox.Show("Invalid Start Frame.");
+                validValues = false;
+            }
+            else if (rAnimation.Checked && Int32.Parse(txtEnd.Text) <= 0)
+            {
+                MessageBox.Show("Invalid End Frame.");
+                validValues = false;
+            }
+            else if (rAnimation.Checked && (txtStart.Text == "" || txtEnd.Text == "End..."))
+            {
+                MessageBox.Show("Sorry. You can't leave the Start Frame or End Frame field blank.");
+                validValues = false;
+            }
+            else if (rAnimation.Checked && Int32.Parse(txtStart.Text) > Int32.Parse(txtEnd.Text))
+            {
+                MessageBox.Show("Invalid Start and End Frames.");
+                validValues = false;
+            }
+            // TODO: Limit Number of Max Frames
+
+            // Validate .Blend File Field
+            if (txtBlend.Text == "")
+            {
+                MessageBox.Show("You can't leave the .Blend File blank.");
+                validValues = false;
+            }
+            else if (!File.Exists(txtBlend.Text))
+            {
+                MessageBox.Show("Sorry. This file does not exist.");
+                validValues = false;
+            }
+
+            // Validate Output Folder
+            if (txtOutput.Text == "")
+            {
+                MessageBox.Show("You can't leave the Output Folder blank.");
+                validValues = false;
+            }
+            else if (!Directory.Exists(txtOutput.Text))
+            {
+                DialogResult dialogResult = MessageBox.Show("Output directory does not exist. Create it?", "", MessageBoxButtons.YesNo);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    // Create Said Directory
+                    Directory.CreateDirectory(txtOutput.Text);
+                }
+                else if (dialogResult == DialogResult.No)
+                {
+                    MessageBox.Show("Output directory does not exist.");
+                    validValues = false;
+                }
+            }
+
+            // If values are valid pass to object, return DialogResult.OK, and close form
+            if (validValues)
+            {
+                // Pass values back to object
+                newJob.ProjectName = txtName.Text;
+                if (rSingle.Checked == true)
+                {
+                    newJob.RenderType = RenderType.Single;
+                    newJob.startFrame = Int32.Parse(txtStart.Text);
+                }
+                else
+                {
+                    newJob.RenderType = RenderType.Animation;
+                    newJob.startFrame = Int32.Parse(txtStart.Text);
+                    newJob.endFrame = Int32.Parse(txtEnd.Text);
+                }
+                newJob.blendPath = txtBlend.Text;
+                newJob.outputFolder = txtOutput.Text;
+
+                // Close Form and Pass Control
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }            
         }
 
         private void btnBlend_Click(object sender, EventArgs e)
