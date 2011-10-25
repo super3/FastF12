@@ -19,10 +19,25 @@ namespace FastF12
 {
     public partial class Main : Form
     {
+        //----------------------------------
+        //          Varible List            
+        //----------------------------------
+        private BlenderJob queue = null;
+             // Stores a temporary BlenderJob Object
+        public Thread currThread = null;
+            // Make the thread available to kill
+
+        //----------------------------------
+        //           Main Function
+        //----------------------------------
         public Main()
         {
             InitializeComponent();
         }
+
+        //----------------------------------
+        //         Helper Functions
+        //----------------------------------
 
         // Launches Wizard_Start.cs and Sets Completed Object to Reference.
         private DialogResult start_wizard(ref BlenderJob tmpBlendJob)
@@ -88,6 +103,26 @@ namespace FastF12
             return true;
         }
 
+        private void UpdateListBoxItem(ListBox lb, object item)
+        {
+            int index = lb.Items.IndexOf(item);
+            int currIndex = lb.SelectedIndex;
+            lb.BeginUpdate();
+            try
+            {
+                lb.ClearSelected();
+                lb.Items[index] = item;
+                lb.SelectedIndex = currIndex;
+            }
+            finally
+            {
+                lb.EndUpdate();
+            }
+        }
+
+        //----------------------------------
+        //           Form Events
+        //----------------------------------
         private void newBtn_Click(object sender, EventArgs e)
         {
             // New BlenderJob Object and DialogResults for Option Checking
@@ -110,23 +145,6 @@ namespace FastF12
                 {
                     listBox1.Items.Remove(listBox1.SelectedItem);
                 }
-            }
-        }
-
-        private void UpdateListBoxItem(ListBox lb, object item)
-        {
-            int index = lb.Items.IndexOf(item);
-            int currIndex = lb.SelectedIndex;
-            lb.BeginUpdate();
-            try
-            {
-                lb.ClearSelected();
-                lb.Items[index] = item;
-                lb.SelectedIndex = currIndex;
-            }
-            finally
-            {
-                lb.EndUpdate();
             }
         }
 
@@ -170,30 +188,63 @@ namespace FastF12
 
         private void runBtn_Click(object sender, EventArgs e)
         {
+            try
+            {
+                queue = (BlenderJob)listBox1.SelectedItem;
+                var t = new Thread(DoWork);
+                currThread = t;
+                t.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        //----------------------------------
+        //        Run Job Functions
+        //----------------------------------
+
+        private void DoWork()
+        {
             // Change Icon
-            runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause); 
+            runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause);
 
             // A CMD Shell and Blender Object
             ProcessStartInfo cmd;
-            BlenderJob job = (BlenderJob)listBox1.SelectedItem;
 
-            //Shell windows settings and arguments 
-            cmd = new ProcessStartInfo("C:\\Users\\Shawn\\Desktop\\blender-2.60-windows64\\blender.exe", job.Run());
+            // Temporary Blender.exe Location
+            string blendExeLoc = "C:\\Users\\Shawn\\Desktop\\blender-2.60-windows64\\blender.exe";
+
+            // Shell windows settings and arguments 
+            cmd = new ProcessStartInfo(blendExeLoc, queue.Run());
             cmd.UseShellExecute = false;
             cmd.ErrorDialog = true;
             cmd.CreateNoWindow = true;
             cmd.RedirectStandardOutput = true;
 
-            //Read and process shell output
+            // Read and process shell output
             Process p = Process.Start(cmd);
 
             // Output for Debug
             StreamReader oReader2 = p.StandardOutput;
             while (!oReader2.EndOfStream)
             {
-                MessageBox.Show(oReader2.ReadLine());
+                //Debug: MessageBox.Show(oReader2.ReadLine());
+                toolStripStatusLabel1.Text = oReader2.ReadLine();
             }
             oReader2.Close();
         }
+
+        private void listBox1_DoubleClick(object sender, EventArgs e)
+        {
+            // Open up render output folder
+            BlenderJob job = (BlenderJob)listBox1.SelectedItem;
+            string myPath = @job.outputFolder;
+            System.Diagnostics.Process prc = new System.Diagnostics.Process();
+            prc.StartInfo.FileName = myPath;
+            prc.Start();
+        }
+
     }
 }
