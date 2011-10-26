@@ -10,7 +10,7 @@ namespace FastF12
         // (Single) - Single Frame Render
         // (Animation) - Muti-Frame Animation Render
 
-    public class BlenderJob
+    public class BlendJob
     {
         // Basic Settings
         public string ProjectName;
@@ -36,21 +36,21 @@ namespace FastF12
             "DPX", "DDS" };
             // Note: All render formats from HDR onward are not supported
             // by Blender by default. 
-        public string fileExt = "JPEG"; //JPEG
-        public bool fileExtinName = false; // Not yet coded
+        public string fileExt; 
+        public bool fileExtinName; // Not yet coded
             // Add the file extension to the end of the file. Not added yet
-        public string fileNaming = "####";
+        public string fileNaming;
 
         // Thread and Idle Settings
-        public bool idleRendering = false;
-        public int idleDelay = 1; // Delay in Minutes
-        public bool threadsEnabled = false;
-        public int threadCount = 0;
+        public bool idleRendering;
+        public int idleDelay; // Delay in Minutes
+        public bool threadsEnabled;
+        public int threadCount;
 
         // Misc Settings
-        public bool debugging = false;
+        public bool debugging;
 
-        public BlenderJob()
+        public BlendJob()
         {
             // Basic Settings
             this.ProjectName = "Untitled";
@@ -74,6 +74,7 @@ namespace FastF12
 
             // Thread and Idle Settings
             this.idleRendering = false;
+            this.idleDelay = 1; 
             this.threadsEnabled = false;
             this.threadCount = 0;
 
@@ -81,7 +82,7 @@ namespace FastF12
             this.debugging = false;
         }
 
-        public String Run()
+        public String getArgs()
         {
             // Usage: blender [-b <dir><file> [-o <dir><file> ][-F <format>][-x [0|1] ]
             // [-t <threads>][-S <name>][-f <frame>][-s<frame> -e <frame> -a]]

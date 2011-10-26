@@ -67,6 +67,27 @@ namespace FastF12.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap blender {
+            get {
+                object obj = ResourceManager.GetObject("blender", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap block {
+            get {
+                object obj = ResourceManager.GetObject("block", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap bug {
+            get {
+                object obj = ResourceManager.GetObject("bug", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap delete {
             get {
                 object obj = ResourceManager.GetObject("delete", resourceCulture);
@@ -74,9 +95,23 @@ namespace FastF12.Properties {
             }
         }
         
+        internal static System.Drawing.Bitmap document__pencil {
+            get {
+                object obj = ResourceManager.GetObject("document--pencil", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap edit {
             get {
                 object obj = ResourceManager.GetObject("edit", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap github_icon {
+            get {
+                object obj = ResourceManager.GetObject("github_icon", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

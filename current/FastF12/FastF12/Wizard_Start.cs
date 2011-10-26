@@ -12,9 +12,9 @@ namespace FastF12
 {
     public partial class Wizard_Start : Form
     {
-        // An editable BlenderJob object and Return
-        private BlenderJob newJob = new BlenderJob();
-        public BlenderJob returnJob
+        // An editable BlendJob object and Return
+        private BlendJob newJob = new BlendJob();
+        public BlendJob returnJob
         {
             get
             {
@@ -22,7 +22,7 @@ namespace FastF12
             }
         }
 
-        public Wizard_Start(ref BlenderJob newjob)
+        public Wizard_Start(ref BlendJob newjob)
         {
             // Start Form
             InitializeComponent();

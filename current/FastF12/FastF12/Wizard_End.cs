@@ -11,8 +11,8 @@ namespace FastF12
 {
     public partial class Wizard_End : Form
     {
-        private BlenderJob newJob = new BlenderJob();
-        public BlenderJob returnJob
+        private BlendJob newJob = new BlendJob();
+        public BlendJob returnJob
         {
             get
             {
@@ -20,7 +20,7 @@ namespace FastF12
             }
         }
 
-        public Wizard_End(ref BlenderJob newjob)
+        public Wizard_End(ref BlendJob newjob)
         {
             // Start Form
             InitializeComponent();

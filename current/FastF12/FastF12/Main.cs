@@ -22,8 +22,8 @@ namespace FastF12
         //----------------------------------
         //          Varible List            
         //----------------------------------
-        private BlenderJob queue = null;
-             // Stores a temporary BlenderJob Object
+        private BlendJob queue = null;
+             // Stores a temporary BlendJob Object
         public Thread currThread = null;
             // Make the thread available to kill
 
@@ -40,7 +40,7 @@ namespace FastF12
         //----------------------------------
 
         // Launches Wizard_Start.cs and Sets Completed Object to Reference.
-        private DialogResult start_wizard(ref BlenderJob tmpBlendJob)
+        private DialogResult start_wizard(ref BlendJob tmpBlendJob)
         {
             // Open Wizard 
             Wizard_Start wizard = new Wizard_Start(ref tmpBlendJob); // Pass by reference. Yay!
@@ -59,7 +59,7 @@ namespace FastF12
         }
 
         // Launches Wizard_End.cs and Sets Completed Object to Reference.
-        private DialogResult end_wizard(ref BlenderJob tmpBlendJob)
+        private DialogResult end_wizard(ref BlendJob tmpBlendJob)
         {
             // Open Wizard 
             Wizard_End wizard = new Wizard_End(ref tmpBlendJob); // Pass by reference. Yay!
@@ -77,10 +77,10 @@ namespace FastF12
             return result;
         }
 
-        // Edit Passed BlenderJob Object. If cancelled return false
-        private bool edit_BlendJob(ref BlenderJob tmpBlend)
+        // Edit Passed BlendJob Object. If cancelled return false
+        private bool edit_BlendJob(ref BlendJob tmpBlend)
         {
-            // New BlenderJob Object and DialogResults for Option Checking
+            // New BlendJob Object and DialogResults for Option Checking
             DialogResult start_wiz = new DialogResult();
             DialogResult end_wiz = new DialogResult();
 
@@ -125,10 +125,10 @@ namespace FastF12
         //----------------------------------
         private void newBtn_Click(object sender, EventArgs e)
         {
-            // New BlenderJob Object and DialogResults for Option Checking
-            BlenderJob tmpBlend = new BlenderJob();
+            // New BlendJob Object and DialogResults for Option Checking
+            BlendJob tmpBlend = new BlendJob();
 
-            // Add to GUI and Loaded BlenderJobs if no cancel has been called
+            // Add to GUI and Loaded BlendJobs if no cancel has been called
             if (edit_BlendJob(ref tmpBlend))
             {
                 listBox1.Items.Add(tmpBlend);
@@ -139,8 +139,8 @@ namespace FastF12
         {
             if (listBox1.SelectedItem != null)
             {
-                // Make sure user doesn't accidentally erase a BlenderJob
-                DialogResult dialogResult = MessageBox.Show("Delete this BlenderJob?", "Delete?", MessageBoxButtons.YesNo);
+                // Make sure user doesn't accidentally erase a BlendJob
+                DialogResult dialogResult = MessageBox.Show("Delete this BlendJob?", "Delete?", MessageBoxButtons.YesNo);
                 if (dialogResult == DialogResult.Yes)
                 {
                     listBox1.Items.Remove(listBox1.SelectedItem);
@@ -152,8 +152,8 @@ namespace FastF12
         {
             if (listBox1.SelectedItem != null)
             {
-                // Edit Selected BlenderJob
-                BlenderJob editJob = (BlenderJob)listBox1.SelectedItem;
+                // Edit Selected BlendJob
+                BlendJob editJob = (BlendJob)listBox1.SelectedItem;
                 if (edit_BlendJob(ref editJob))
                 {
                     UpdateListBoxItem(listBox1, editJob);
@@ -190,7 +190,7 @@ namespace FastF12
         {
             try
             {
-                queue = (BlenderJob)listBox1.SelectedItem;
+                queue = (BlendJob)listBox1.SelectedItem;
                 var t = new Thread(DoWork);
                 currThread = t;
                 t.Start();
@@ -217,7 +217,7 @@ namespace FastF12
             string blendExeLoc = "C:\\Users\\Shawn\\Desktop\\blender-2.60-windows64\\blender.exe";
 
             // Shell windows settings and arguments 
-            cmd = new ProcessStartInfo(blendExeLoc, queue.Run());
+            cmd = new ProcessStartInfo(blendExeLoc, queue.getArgs());
             cmd.UseShellExecute = false;
             cmd.ErrorDialog = true;
             cmd.CreateNoWindow = true;
@@ -239,7 +239,7 @@ namespace FastF12
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             // Open up render output folder
-            BlenderJob job = (BlenderJob)listBox1.SelectedItem;
+            BlendJob job = (BlendJob)listBox1.SelectedItem;
             string myPath = @job.outputFolder;
             System.Diagnostics.Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = myPath;
