@@ -78,8 +78,18 @@ namespace FastF12
 
         private void btnBrowse_Click(object sender, EventArgs e)
         {
-            //Browse for Blender.exe
+            //Browse for Blender.exe and Set to Textbox
             txtBlenderExe.Text = openFile("Blender.exe (blender.exe)|blender.exe");
+            
+            // Set Blender.exe to Application Settings
+            Properties.Settings.Default.BlenderExe = txtBlenderExe.Text;
+            Properties.Settings.Default.Save();
+        }
+
+        private void Settings_Load(object sender, EventArgs e)
+        {
+            // Load Current Blender.exe Location Setting
+            txtBlenderExe.Text = Properties.Settings.Default.BlenderExe;
         }       
     }
 }

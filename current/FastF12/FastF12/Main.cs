@@ -22,10 +22,12 @@ namespace FastF12
         //----------------------------------
         //          Varible List            
         //----------------------------------
-        private BlendJob queue = null;
-             // Stores a temporary BlendJob Object
         public Thread currThread = null;
             // Make the thread available to kill
+        private BlendJob queue = null;
+             // Stores a temporary BlendJob Object 
+        private string blendExeLoc = Properties.Settings.Default.BlenderExe;
+              // Blender.exe Location
 
         //----------------------------------
         //           Main Function
@@ -213,11 +215,8 @@ namespace FastF12
             // A CMD Shell and Blender Object
             ProcessStartInfo cmd;
 
-            // Temporary Blender.exe Location
-            string blendExeLoc = "C:\\Users\\Shawn\\Desktop\\blender-2.60-windows64\\blender.exe";
-
             // Shell windows settings and arguments 
-            cmd = new ProcessStartInfo(blendExeLoc, queue.getArgs());
+            cmd = new ProcessStartInfo(this.blendExeLoc, queue.getArgs());
             cmd.UseShellExecute = false;
             cmd.ErrorDialog = true;
             cmd.CreateNoWindow = true;
@@ -244,6 +243,18 @@ namespace FastF12
             System.Diagnostics.Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = myPath;
             prc.Start();
+        }
+
+        private void Main_Load(object sender, EventArgs e)
+        {
+            // Warn User About Missing Blender.exe
+            if (Properties.Settings.Default.BlenderExe == "")
+            {
+                MessageBox.Show("Please add a Blender.exe location");
+                // Launch Settings.cs
+                Settings form = new Settings();
+                form.Show();
+            }
         }
 
     }
