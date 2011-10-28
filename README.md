@@ -11,5 +11,7 @@ Folders
              
 Todo
 -------
-* Check, save, and let user set blender.exe location
-* Run more than one BlendJob
+* Show status of running Blender Jobs
+* Code pause() in BlendStatus
+* Add debugging output
+* Add idle rendering functionality
