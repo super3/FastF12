@@ -159,7 +159,6 @@ namespace FastF12
             this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "FastF12";
-            this.Load += new System.EventHandler(this.Main_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);

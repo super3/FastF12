@@ -190,16 +190,29 @@ namespace FastF12
 
         private void runBtn_Click(object sender, EventArgs e)
         {
-            try
+            // Test and Warn User About Missing Blender.exe
+            if (Properties.Settings.Default.BlenderExe == "")
             {
-                queue = (BlendJob)listBox1.SelectedItem;
-                var t = new Thread(DoWork);
-                currThread = t;
-                t.Start();
+                // Warn
+                MessageBox.Show("Please add a Blender.exe location");
+                // Launch Settings.cs
+                Settings form = new Settings();
+                form.Show();
             }
-            catch (Exception ex)
+            // Else Just Run the Selected Job
+            else
             {
-                MessageBox.Show(ex.Message);
+                try
+                {
+                    queue = (BlendJob)listBox1.SelectedItem;
+                    var t = new Thread(DoWork);
+                    currThread = t;
+                    t.Start();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
@@ -217,6 +230,7 @@ namespace FastF12
 
             // Shell windows settings and arguments 
             cmd = new ProcessStartInfo(this.blendExeLoc, queue.getArgs());
+            MessageBox.Show(queue.getArgs());
             cmd.UseShellExecute = false;
             cmd.ErrorDialog = true;
             cmd.CreateNoWindow = true;
@@ -244,18 +258,5 @@ namespace FastF12
             prc.StartInfo.FileName = myPath;
             prc.Start();
         }
-
-        private void Main_Load(object sender, EventArgs e)
-        {
-            // Warn User About Missing Blender.exe
-            if (Properties.Settings.Default.BlenderExe == "")
-            {
-                MessageBox.Show("Please add a Blender.exe location");
-                // Launch Settings.cs
-                Settings form = new Settings();
-                form.Show();
-            }
-        }
-
     }
 }
