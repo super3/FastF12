@@ -1,19 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System.Windows.Forms;
+﻿using System.IO;
 using System.Threading;
-// Shell Scripting
 using System.Diagnostics;
-// Shell Scripting
-using System.Runtime.InteropServices;
-// ObjectsArrays
 
 namespace FastF12
 {
