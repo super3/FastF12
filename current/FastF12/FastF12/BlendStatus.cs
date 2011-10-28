@@ -1,27 +1,32 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Diagnostics;
 using System.IO;
-
+using System.Text;
+using System.Windows.Forms;
+using System.Threading;
+// Shell Scripting
+using System.Diagnostics;
+// Shell Scripting
+using System.Runtime.InteropServices;
+// ObjectsArrays
 
 namespace FastF12
 {
-    class BlendStatus : BlendJob
+    class BlendStatus
     {
         //----------------------------------
         //          Variables
         //----------------------------------
         // See if the BlendJob is currently running
-        private bool isRunning
-        {
-            get { return isRunning; }
-            set { isRunning = (bool)value; } // Cast to Make Sure
-        }
-        private Thread myThread = null;
+        public bool isRunning;
+        private Thread myThread;
             // Make the thread available to kill
+        private BlendJob myBlendJob; // Should actually use inheritance here         
 
         //----------------------------------
         //          Properties
@@ -33,9 +38,35 @@ namespace FastF12
         //----------------------------------
         //          Constructor
         //----------------------------------
-        public BlendStatus()
+        public BlendStatus(BlendJob blendjob)
         {
+            // Set Default Values
             isRunning = false;
+            myThread = null;
+            myBlendJob = blendjob;
+
+            currFrame = 0;
+            currParts = 0;
+            totalParts = 0;
+        }
+
+        //----------------------------------
+        //          ToString()
+        //----------------------------------
+        public override string ToString()
+        {
+            return this.myBlendJob.ProjectName;
+        }
+
+        //----------------------------------
+        //          Accessors
+        //----------------------------------
+        public BlendJob getBlendJob() {
+            return myBlendJob;
+        }
+        public void setBlendJob(BlendJob tmp)
+        {
+            myBlendJob = tmp;
         }
 
         //----------------------------------
@@ -46,6 +77,7 @@ namespace FastF12
             // Start Thread
             myThread = new Thread(DoWork);
             myThread.Start();
+            isRunning = true;
         }
         public void pause()
         {
@@ -57,6 +89,7 @@ namespace FastF12
             if (myThread.IsAlive)
             {
                 myThread.Abort();
+                isRunning = false;
             }
         }
 
@@ -69,7 +102,7 @@ namespace FastF12
             ProcessStartInfo cmd;
 
             // Shell windows settings and arguments 
-            cmd = new ProcessStartInfo(Properties.Settings.Default.BlenderExe, this.getArgs());
+            cmd = new ProcessStartInfo(Properties.Settings.Default.BlenderExe, this.myBlendJob.getArgs());
             cmd.UseShellExecute = false;
             cmd.ErrorDialog = true;
             cmd.CreateNoWindow = true;
@@ -83,6 +116,7 @@ namespace FastF12
             while (!oReader2.EndOfStream)
             {
                 // TODO: Check Output
+                // MessageBox.Show(oReader2.ReadLine());
             }
             oReader2.Close();  
         }

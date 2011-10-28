@@ -82,6 +82,7 @@ namespace FastF12
             this.stopBtn.TabIndex = 6;
             this.toolTip1.SetToolTip(this.stopBtn, "Stop");
             this.stopBtn.UseVisualStyleBackColor = true;
+            this.stopBtn.Click += new System.EventHandler(this.stopBtn_Click);
             // 
             // runBtn
             // 

@@ -22,12 +22,8 @@ namespace FastF12
         //----------------------------------
         //          Varible List            
         //----------------------------------
-        public Thread currThread = null;
-            // Make the thread available to kill
-        private BlendJob queue = null;
+        private BlendStatus queue = null;
              // Stores a temporary BlendJob Object 
-        private string blendExeLoc = Properties.Settings.Default.BlenderExe;
-              // Blender.exe Location
 
         //----------------------------------
         //           Main Function
@@ -133,7 +129,7 @@ namespace FastF12
             // Add to GUI and Loaded BlendJobs if no cancel has been called
             if (edit_BlendJob(ref tmpBlend))
             {
-                listBox1.Items.Add(tmpBlend);
+                listBox1.Items.Add(new BlendStatus(tmpBlend));
             }
         }
 
@@ -155,9 +151,11 @@ namespace FastF12
             if (listBox1.SelectedItem != null)
             {
                 // Edit Selected BlendJob
-                BlendJob editJob = (BlendJob)listBox1.SelectedItem;
-                if (edit_BlendJob(ref editJob))
+                BlendStatus editJob = (BlendStatus)listBox1.SelectedItem;
+                BlendJob tmpBlendJob = editJob.getBlendJob();
+                if (edit_BlendJob(ref tmpBlendJob))
                 {
+                    editJob.setBlendJob(tmpBlendJob);
                     UpdateListBoxItem(listBox1, editJob);
                 }
             }
@@ -174,17 +172,28 @@ namespace FastF12
         {
             if (listBox1.SelectedItem != null)
             {
+                // Set Buttons
                 editBtn.Enabled = true;
                 trashBtn.Enabled = true;
                 runBtn.Enabled = true;
                 stopBtn.Enabled = true;
+                if (((BlendStatus)listBox1.SelectedItem).isRunning)
+                {
+                    runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause);
+                }
+                else
+                {
+                    runBtn.Image = (System.Drawing.Image)(Properties.Resources.run);
+                }
             }
             else
             {
+                // Set Buttons
                 editBtn.Enabled = false;
                 trashBtn.Enabled = false;
                 runBtn.Enabled = true;
                 stopBtn.Enabled = true;
+                runBtn.Image = (System.Drawing.Image)(Properties.Resources.run);
             }
         }
 
@@ -204,49 +213,15 @@ namespace FastF12
             {
                 try
                 {
-                    queue = (BlendJob)listBox1.SelectedItem;
-                    var t = new Thread(DoWork);
-                    currThread = t;
-                    t.Start();
+                    runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause);
+                    queue = (BlendStatus)listBox1.SelectedItem;
+                    queue.run();
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
             }
-        }
-
-        //----------------------------------
-        //        Run Job Functions
-        //----------------------------------
-
-        private void DoWork()
-        {
-            // Change Icon
-            runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause);
-
-            // A CMD Shell and Blender Object
-            ProcessStartInfo cmd;
-
-            // Shell windows settings and arguments 
-            cmd = new ProcessStartInfo(this.blendExeLoc, queue.getArgs());
-            MessageBox.Show(queue.getArgs());
-            cmd.UseShellExecute = false;
-            cmd.ErrorDialog = true;
-            cmd.CreateNoWindow = true;
-            cmd.RedirectStandardOutput = true;
-
-            // Read and process shell output
-            Process p = Process.Start(cmd);
-
-            // Output for Debug
-            StreamReader oReader2 = p.StandardOutput;
-            while (!oReader2.EndOfStream)
-            {
-                //Debug: MessageBox.Show(oReader2.ReadLine());
-                toolStripStatusLabel1.Text = oReader2.ReadLine();
-            }
-            oReader2.Close();
         }
 
         private void listBox1_DoubleClick(object sender, EventArgs e)
@@ -257,6 +232,15 @@ namespace FastF12
             System.Diagnostics.Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = myPath;
             prc.Start();
+        }
+
+        private void stopBtn_Click(object sender, EventArgs e)
+        {
+            if ( ((BlendStatus)listBox1.SelectedItem).isRunning )
+            {
+                ((BlendStatus)listBox1.SelectedItem).stop();
+                runBtn.Image = (System.Drawing.Image)(Properties.Resources.run);
+            }
         }
     }
 }
