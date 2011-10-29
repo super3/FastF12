@@ -156,29 +156,30 @@ namespace FastF12
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            // If there is a selected item
             if (listBox1.SelectedItem != null)
             {
-                // Set Buttons
+                // Set Buttons Enabled
                 editBtn.Enabled = true;
                 trashBtn.Enabled = true;
                 runBtn.Enabled = true;
                 stopBtn.Enabled = true;
+
+                // Set runBtn Run or Pause Image if job is running
                 if (((BlendStatus)listBox1.SelectedItem).isRunning)
-                {
                     runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause);
-                }
                 else
-                {
                     runBtn.Image = (System.Drawing.Image)(Properties.Resources.run);
-                }
             }
             else
             {
-                // Set Buttons
+                // Set Buttons Disabled
                 editBtn.Enabled = false;
                 trashBtn.Enabled = false;
                 runBtn.Enabled = true;
                 stopBtn.Enabled = true;
+
+                // Set runBtn to Run Image
                 runBtn.Image = (System.Drawing.Image)(Properties.Resources.run);
             }
         }
@@ -199,7 +200,9 @@ namespace FastF12
             {
                 try
                 {
+                    // Set runBtn to Pause image
                     runBtn.Image = (System.Drawing.Image)(Properties.Resources.pause);
+                    // Run selected job
                     queue = (BlendStatus)listBox1.SelectedItem;
                     queue.run();
                 }
@@ -222,10 +225,40 @@ namespace FastF12
 
         private void stopBtn_Click(object sender, EventArgs e)
         {
+            // Stop selected job
             if ( ((BlendStatus)listBox1.SelectedItem).isRunning )
             {
                 ((BlendStatus)listBox1.SelectedItem).stop();
                 runBtn.Image = (System.Drawing.Image)(Properties.Resources.run);
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (listBox1.SelectedItem != null)
+            {
+                if (((BlendStatus)listBox1.SelectedItem).isRunning)
+                {
+                    toolStripStatusLabel1.Text = ((BlendStatus)listBox1.SelectedItem).lastOutput;
+                }
+                else
+                {
+                    int numRunning = 0;
+                    foreach (BlendStatus o in listBox1.Items)
+                    {
+                        if (o.isRunning)
+                            numRunning++;
+                    }
+
+                    if (numRunning == 0)
+                    {
+                        toolStripStatusLabel1.Text = "Ready";
+                    }
+                    else
+                    {
+                        toolStripStatusLabel1.Text = numRunning + " job(s) running.";
+                    }
+                }
             }
         }
     }

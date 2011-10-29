@@ -13,7 +13,8 @@ namespace FastF12
         public bool isRunning;
         private Thread myThread;
             // Make the thread available to kill
-        private BlendJob myBlendJob; // Should actually use inheritance here         
+        private BlendJob myBlendJob; // Should actually use inheritance here  
+        public string lastOutput;
 
         //----------------------------------
         //          Properties
@@ -31,6 +32,7 @@ namespace FastF12
             isRunning = false;
             myThread = null;
             myBlendJob = blendjob;
+            lastOutput = "";
 
             currFrame = 0;
             currParts = 0;
@@ -103,7 +105,7 @@ namespace FastF12
             while (!oReader2.EndOfStream)
             {
                 // TODO: Check Output
-                // MessageBox.Show(oReader2.ReadLine());
+                lastOutput = oReader2.ReadLine();
             }
             oReader2.Close();  
         }

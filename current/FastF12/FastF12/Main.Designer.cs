@@ -42,6 +42,7 @@ namespace FastF12
             this.trashBtn = new System.Windows.Forms.Button();
             this.editBtn = new System.Windows.Forms.Button();
             this.newBtn = new System.Windows.Forms.Button();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -142,6 +143,11 @@ namespace FastF12
             this.newBtn.UseVisualStyleBackColor = true;
             this.newBtn.Click += new System.EventHandler(this.newBtn_Click);
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -179,6 +185,7 @@ namespace FastF12
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.Button runBtn;
         private System.Windows.Forms.Button stopBtn;
+        private System.Windows.Forms.Timer timer1;
     }
 }
 
