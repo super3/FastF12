@@ -15,3 +15,4 @@ Todo
 * Code pause() in BlendStatus
 * Add debugging output
 * Add idle rendering functionality
+* Save BlendJobs as XML
