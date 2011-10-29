@@ -11,7 +11,6 @@ Folders
              
 Todo
 -------
-* Show status of running Blender Jobs
 * Code pause() in BlendStatus
 * Add debugging output
 * Add idle rendering functionality
