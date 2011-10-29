@@ -239,7 +239,8 @@ namespace FastF12
             {
                 if (((BlendStatus)listBox1.SelectedItem).isRunning)
                 {
-                    toolStripStatusLabel1.Text = ((BlendStatus)listBox1.SelectedItem).lastOutput;
+                    //toolStripStatusLabel1.Text = ((BlendStatus)listBox1.SelectedItem).lastOutput;
+                    toolStripStatusLabel1.Text = (((BlendStatus)listBox1.SelectedItem).percentDone().ToString()) + "%";
                 }
                 else
                 {
@@ -252,7 +253,7 @@ namespace FastF12
 
                     if (numRunning == 0)
                     {
-                        toolStripStatusLabel1.Text = "Ready";
+                       // toolStripStatusLabel1.Text = "Ready";
                     }
                     else
                     {

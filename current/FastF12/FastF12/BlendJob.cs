@@ -17,12 +17,8 @@ namespace FastF12
         public string blendPath;
         public string outputFolder;
 
-        // Single Settings
-        public int selectedFrame;
-
-        // Animation Settings 
-        public int currentFrame;
-        public int startFrame;
+        // Single and Animation Settings 
+        public int startFrame; // Used as selected frame if Single
         public int endFrame;
 
         // File Options
@@ -53,14 +49,10 @@ namespace FastF12
             this.ProjectName = "Untitled";
             this.RenderType = RenderType.Single;
 
-            this.blendPath = "C:\\Users\\Shawn\\Desktop\\kitchen.blend"; // For Testing Only
+            this.blendPath = "C:\\Users\\Shawn\\Desktop\\kitchen.blend"; // For Testing Only. Remove for Release.
             this.outputFolder = "C:\\tmp\\";
 
-             // Single Settings
-            this.selectedFrame = 1; 
-
-            // Animation Settings 
-            this.currentFrame = 1; 
+            // Singl and Animation Settings 
             this.startFrame = 1;
             this.endFrame = 250;
 
@@ -105,7 +97,7 @@ namespace FastF12
 
             // Add Single or Animation
             if (this.RenderType == RenderType.Single)
-                str += " -f " + this.selectedFrame;
+                str += " -f " + this.startFrame;
             else if (this.RenderType == RenderType.Animation)
                 str += " -s " + this.startFrame + " -e " + this.endFrame + " -a";
             else

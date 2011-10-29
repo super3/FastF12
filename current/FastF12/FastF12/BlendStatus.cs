@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
 
@@ -20,8 +21,8 @@ namespace FastF12
         //          Properties
         //----------------------------------
         private int currFrame;
-        private int currParts;
-        private int totalParts;
+        public double currParts;
+        public double totalParts;
 
         //----------------------------------
         //          Constructor
@@ -57,6 +58,27 @@ namespace FastF12
         {
             myBlendJob = tmp;
         }
+        public int percentDone()
+        {
+            if (myBlendJob.RenderType == RenderType.Single)
+            {
+                if (totalParts != 0)
+                {
+                    return (int)((currParts / totalParts) * 100);
+                }
+            }
+            else
+            {
+                if (totalParts != 0)
+                {
+                    int totalFrames = (myBlendJob.endFrame - myBlendJob.startFrame) + 1;
+                    return (int)((currParts / (totalParts * totalFrames)) * 100);
+                }
+            }
+
+            return 0;
+            
+        }
 
         //----------------------------------
         //          Run Job Methods
@@ -74,11 +96,16 @@ namespace FastF12
         }
         public void stop()
         {
+            // Clear Variables
+            isRunning = false;
+            currFrame = 0;
+            currParts = 0;
+            totalParts = 0;
+
             // If Running then Stop
             if (myThread.IsAlive)
             {
                 myThread.Abort();
-                isRunning = false;
             }
         }
 
@@ -92,6 +119,7 @@ namespace FastF12
 
             // Shell windows settings and arguments 
             cmd = new ProcessStartInfo(Properties.Settings.Default.BlenderExe, this.myBlendJob.getArgs());
+            //MessageBox.Show(this.myBlendJob.getArgs());
             cmd.UseShellExecute = false;
             cmd.ErrorDialog = true;
             cmd.CreateNoWindow = true;
@@ -104,8 +132,46 @@ namespace FastF12
             StreamReader oReader2 = p.StandardOutput;
             while (!oReader2.EndOfStream)
             {
-                // TODO: Check Output
+                // lastOutput and TODO: Debug
                 lastOutput = oReader2.ReadLine();
+
+                // Uses lastOutput for operations
+                if (lastOutput.StartsWith("Fra:", System.StringComparison.OrdinalIgnoreCase))
+                {
+                    // Use the power of scopes to reuse start and end local vars
+                    {
+                        // Get Indexs and Set Current Frame
+                        int start = lastOutput.IndexOf("Fra:") + "Fra:".Length;
+                        int end = lastOutput.IndexOf("Mem:") - "Mem:".Length;
+                        currFrame = int.Parse(lastOutput.Substring(start, end));
+                    }
+                    {
+                        // Get Index and Set Current Parts
+                        int start = lastOutput.IndexOf("Part ");
+                        // If something is found
+                        if (start != -1)
+                        {
+                            // Add this to crop out "Part "
+                            start += "Part ".Length;
+                            string parts = lastOutput.Substring(start);
+                            parts = parts.Trim();
+                            string[] parts2 = parts.Split('-');
+                            currParts += 1;
+                            totalParts = double.Parse(parts2[1]); 
+                        }
+                        
+                    }
+                }
+                else if (lastOutput == "Blender quit")
+                {
+                    // Kill to thread to make sure
+                    stop();
+                }
+                else
+                {
+                    // Unrecognised or Disposable Output
+                    // Do Nothing
+                }
             }
             oReader2.Close();  
         }
