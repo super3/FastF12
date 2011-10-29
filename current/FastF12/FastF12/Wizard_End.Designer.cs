@@ -175,6 +175,7 @@
             // checkIdle
             // 
             this.checkIdle.AutoSize = true;
+            this.checkIdle.Enabled = false;
             this.checkIdle.Location = new System.Drawing.Point(69, 95);
             this.checkIdle.Name = "checkIdle";
             this.checkIdle.Size = new System.Drawing.Size(394, 17);
@@ -182,6 +183,7 @@
             this.checkIdle.Text = "Idle Rendering - Only render job when the computer is idle for            minute(" +
     "s).";
             this.checkIdle.UseVisualStyleBackColor = true;
+            this.checkIdle.Visible = false;
             this.checkIdle.CheckedChanged += new System.EventHandler(this.checkIdle_CheckedChanged);
             // 
             // txtIdle
@@ -194,6 +196,7 @@
             this.txtIdle.Size = new System.Drawing.Size(26, 20);
             this.txtIdle.TabIndex = 2;
             this.txtIdle.Text = "1";
+            this.txtIdle.Visible = false;
             this.txtIdle.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtIdle_KeyPress);
             // 
             // groupBox1
