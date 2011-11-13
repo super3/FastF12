@@ -216,8 +216,9 @@ namespace FastF12
         private void listBox1_DoubleClick(object sender, EventArgs e)
         {
             // Open up render output folder
-            BlendJob job = (BlendJob)listBox1.SelectedItem;
-            string myPath = @job.outputFolder;
+            BlendStatus job = (BlendStatus)listBox1.SelectedItem;
+            BlendJob job2 = job.getBlendJob();
+            string myPath = @job2.outputFolder;
             System.Diagnostics.Process prc = new System.Diagnostics.Process();
             prc.StartInfo.FileName = myPath;
             prc.Start();
