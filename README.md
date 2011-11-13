@@ -12,6 +12,6 @@ Folders
 Todo
 -------
 * Code pause() in BlendStatus
-* Add debugging output
 * Add idle rendering functionality
 * Save BlendJobs as XML
+* Better display of jobs and their statuses in main form

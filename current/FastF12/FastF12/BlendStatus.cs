@@ -1,5 +1,5 @@
-﻿using System.IO;
-using System.Windows.Forms;
+﻿using System;
+using System.IO;
 using System.Threading;
 using System.Diagnostics;
 
@@ -132,12 +132,22 @@ namespace FastF12
             // Read and process shell output
             Process p = Process.Start(cmd);
 
+            // Debug
+            string debugPath = this.myBlendJob.outputFolder + "\\" + this.myBlendJob.ProjectName + "-debug.txt";
+            string lottaDashes = "-----------------------------------------------------------------"; // bunch of dashes for formatting
+            if (this.myBlendJob.debugging)
+                System.IO.File.AppendAllText(@debugPath, Environment.NewLine+ lottaDashes + Environment.NewLine + "Render Started at " + DateTime.Now + Environment.NewLine);
+
             // Output for Debug
             StreamReader oReader2 = p.StandardOutput;
             while (!oReader2.EndOfStream)
             {
-                // lastOutput and TODO: Debug
+                // Set lastOutput for string processing
                 lastOutput = oReader2.ReadLine();
+
+                // Debug
+                if (this.myBlendJob.debugging)      
+                    System.IO.File.AppendAllText(@debugPath, (lastOutput+Environment.NewLine));
 
                 // Uses lastOutput for operations
                 if (lastOutput.StartsWith("Fra:", System.StringComparison.OrdinalIgnoreCase))
