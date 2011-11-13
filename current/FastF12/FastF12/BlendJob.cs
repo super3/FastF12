@@ -7,6 +7,15 @@ namespace FastF12
         // (Single) - Single Frame Render
         // (Animation) - Muti-Frame Animation Render
 
+    /// <summary>
+    /// A BlenderJob object holds the properties of the arguments that can be passed 
+    /// to Blender in the command line. 
+    /// <remark>
+    /// All data members are public so they may be easily mutated by the wizard forms.
+    /// The BlendJob object is kept a private data member of the BlenderStatus class
+    /// to keep some form of encapsulation. 
+    /// </remark>
+    /// </summary>
     public class BlendJob
     {
         // Basic Settings
@@ -31,7 +40,7 @@ namespace FastF12
             // by Blender by default. 
         public string fileExt; 
         public bool fileExtinName; // Not yet coded
-            // Add the file extension to the end of the file. Not added yet
+            // Add the file extension to the end of the file.
         public string fileNaming;
 
         // Thread and Idle Settings
@@ -43,21 +52,24 @@ namespace FastF12
         // Misc Settings
         public bool debugging;
 
+        /// <summary> Constructor for the BlendJob Class.
+        /// <para> Instantiates the object's data members to a simple default BlenderJob. </para>
+        /// </summary>
         public BlendJob()
         {
             // Basic Settings
             this.ProjectName = "Untitled";
             this.RenderType = RenderType.Single;
 
-            //this.blendPath = "C:\\Users\\Shawn\\Desktop\\kitchen.blend"; // For Testing Only. Remove for Release.
+            // this.blendPath = "C:\\Users\\Shawn\\Desktop\\kitchen.blend"; // For Testing Only. Comment for Release.
             this.blendPath = "";
             this.outputFolder = "C:\\tmp\\";
 
-            // Singl and Animation Settings 
+            // Single and Animation Settings 
             this.startFrame = 1;
             this.endFrame = 250;
 
-              // File Options
+            // File Options
             this.fileExt = this.RenderFormat[3]; //JPEG
             this.fileExtinName = false;
             this.fileNaming = "####";
@@ -68,10 +80,11 @@ namespace FastF12
             this.threadsEnabled = false;
             this.threadCount = 0;
 
-            // Misc Settings
+            // Misc. Settings
             this.debugging = false;
         }
 
+        /// <summary> Returns the command line arguments for the object. </summary>
         public String getArgs()
         {
             // Usage: blender [-b <dir><file> [-o <dir><file> ][-F <format>][-x [0|1] ]
@@ -88,7 +101,7 @@ namespace FastF12
             str += " -F " + this.fileExt + this.fileNaming;
             if (this.fileExtinName) { str += " -x " + this.fileExtinName; }
 
-            //Add Threads(If Requested)
+            // Add Threads
             if (this.threadsEnabled)
                 str += " -t " + this.threadCount ;
 
@@ -104,13 +117,7 @@ namespace FastF12
             else
                 throw new System.InvalidOperationException("Invalid RenderType");
 
-            // Return command line arguments
             return str;
-        }
-
-        public override string ToString()
-        {
-            return ProjectName;
         }
     }
 }

@@ -29,6 +29,8 @@ namespace FastF12
             // Open Wizard 
             Wizard_Start wizard = new Wizard_Start(ref tmpBlendJob); // Pass by reference. Yay!
 
+            BlendJob test = new BlendJob();
+
             // Show wizard as a modal dialog and determine if DialogResult = OK.
             DialogResult result = wizard.ShowDialog(this);
             if (result == DialogResult.OK)

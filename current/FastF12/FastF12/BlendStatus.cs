@@ -10,23 +10,23 @@ namespace FastF12
         //----------------------------------
         //          Variables
         //----------------------------------
-        // See if the BlendJob is currently running
-        public bool isRunning;
-        private Thread myThread;
-            // Make the thread available to kill
+        public bool isRunning; // See if the BlendJob is currently running
+        public string lastOutput; // Last command line output
+        private Thread myThread; // Make the thread available to kill
         private BlendJob myBlendJob; // Should actually use inheritance here  
-        public string lastOutput;
+
 
         //----------------------------------
-        //          Properties
+        //           Status
         //----------------------------------
         private int currFrame;
         public double currParts;
         public double totalParts;
 
-        //----------------------------------
-        //          Constructor
-        //----------------------------------
+        /// <summary>
+        /// BlenderStatus Constructor. Sets Default Values. 
+        /// </summary>
+        /// <param name="blendjob">Actual BlendJob with all the render info.</param>
         public BlendStatus(BlendJob blendjob)
         {
             // Set Default Values
@@ -40,16 +40,19 @@ namespace FastF12
             totalParts = 0;
         }
 
-        //----------------------------------
-        //          ToString()
-        //----------------------------------
+        /// <summary>
+        /// Overides ToString() and returns the project name
+        /// <remarks>
+        /// So the project name will show up the in listbox item text property.
+        /// </remarks>
+        /// </summary>
         public override string ToString()
         {
             return this.myBlendJob.ProjectName;
         }
 
         //----------------------------------
-        //          Accessors
+        //      Accessors and Mutators
         //----------------------------------
         public BlendJob getBlendJob() {
             return myBlendJob;
@@ -58,6 +61,7 @@ namespace FastF12
         {
             myBlendJob = tmp;
         }
+
         public int percentDone()
         {
             if (myBlendJob.RenderType == RenderType.Single)
@@ -77,7 +81,7 @@ namespace FastF12
             }
 
             return 0;
-            
+   
         }
 
         //----------------------------------
@@ -138,7 +142,7 @@ namespace FastF12
                 // Uses lastOutput for operations
                 if (lastOutput.StartsWith("Fra:", System.StringComparison.OrdinalIgnoreCase))
                 {
-                    // Use the power of scopes to reuse start and end local vars
+                    // Use the power of SCOPES to reuse start and end local vars
                     {
                         // Get Indexs and Set Current Frame
                         int start = lastOutput.IndexOf("Fra:") + "Fra:".Length;
@@ -164,7 +168,7 @@ namespace FastF12
                 }
                 else if (lastOutput == "Blender quit")
                 {
-                    // Kill to thread to make sure
+                    // Kill the thread to make sure
                     stop();
                 }
                 else
@@ -173,6 +177,7 @@ namespace FastF12
                     // Do Nothing
                 }
             }
+            // Close StreamReader
             oReader2.Close();  
         }
     }
