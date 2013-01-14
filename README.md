@@ -1,6 +1,6 @@
 Fast12
 =============
-A rendering tool for Blender made in C#.
+A GUI tool that simplifies batching rendering using Blender's command lime arguments.
 
 Folders
 -------
