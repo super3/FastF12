@@ -27,7 +27,7 @@ class Job:
 	"""
 
 	# Constructor
-	def __init__(self, path, frame):
+	def __init__(self, path, out_path, frame):
 		"""
 		Keyword Arguments:
 		path  -- Path to the .blend file.
@@ -37,12 +37,33 @@ class Job:
 
 		# Assign Private Vars
 		self.path = path
+		self.out_path = out_path
 		self.frame = frame
 
 		# Error Check Vars
 		self.errors = []
-		self.errors += isPath()
 
 	# Input Checkers
-	def isPath(self, path):
+	def isPath(self):
+		return os.path.isfile(self.path)
 
+	# Command Builder
+	def cmdstr(self):
+		cmd = "\"C:\\Program Files\\Blender Foundation\\Blender\\blender.exe\""
+		cmd += " -b " + self.path 
+		cmd += " -o " + self.out_path
+		cmd += " -f " + str(self.frame)
+		return cmd
+
+	# Command Runner
+	def run(self):
+		print(self.cmdstr())
+		os.system(self.cmdstr())
+
+# Main
+if __name__ == "__main__":
+	blend_path = "C:\\Users\\super_000\\Desktop\\default.blend"
+	out_path = "C:\\Users\\super_000\\Desktop\\"
+	frame = 1
+	testjob = Job(blend_path, out_path, frame)
+	testjob.run()
