@@ -65,6 +65,8 @@ class Job:
 			errors.append("Unsupported Render Format.")
 		if not isinstance(self.frame, int):
 			errors.append("Invalid Render Frame.")
+		if self.isAni and not (self.end > self.start):
+			errors.append("Invalid Animation Render Frames.")
 
 		# Return Validation
 		if len(errors) <= 0:
@@ -117,11 +119,13 @@ class Job:
 	def run(self, pathToBlender):
 		if self.validate():
 			os.system(self.cmdstr(pathToBlender))
+		else:
+			print("Could not complete job.")
 
 # Main
 if __name__ == "__main__":
 	blend_path = "C:\\Users\\super_000\\Desktop\\default.blend"
 	out_path = "C:\\Users\\super_000\\Desktop\\test\\"
-	frame = 1
-	testjob = Job(blend_path, out_path, "PNG", True, 1, 50, frame)
+	frame = 0
+	testjob = Job(blend_path, out_path, "PNG", False, 1, 50, frame)
 	testjob.run("C:\\Program Files\\Blender Foundation\\Blender\\blender.exe")
