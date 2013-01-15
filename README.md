@@ -7,19 +7,35 @@ The GUI subset of the tool will focus on two parts:
 * Allow for users to easily create and run batch Blender render jobs.
 * Allow for users to easily run Blender render jobs on remote computers using a 3rd party website.
 
-
 Requirements
 -------
 * Blender 2.65a - [Download Now](http://www.blender.org/download/get-blender/)
 * Python 3.2 - [Download Now](http://www.python.org/download/releases/3.2/)
 
-Folders
+Compatibility 
 -------
-* /alpha-one/ - First working alpha of Fast12. Released, but not a polished product. Most of the base code is from this project.
-* /alpha-two/ - Second alpha of FastF12. Was labeled FastF12 2.0, but was not completed. BlendJob wizards are taken from this project.
-* /alpha-three/ - Current developmental build of FastF12. 
-* /dev-docs/ - PDFs from Blender documentation on command line arguments. 
-             
-Todo
+The FastF12 tool is dependent on the current implementation of Blender's command line arguments. There have been slight changes in the number of commands between major Blender releases. This tool will follow the current implementation of command line arguments in Blender 2.65a as detailed by [this documentation](http://wiki.blender.org/index.php/Doc:2.6/Manual/Render/Command_Line).
+
+Sample JSON Config Files
 -------
-- [ ] Write standard for JSON job file.
+	{
+	    "source": "default.blend",
+	    "lastName": "Smith",
+	    "age": 25,
+	    "address": {
+	        "streetAddress": "21 2nd Street",
+	        "city": "New York",
+	        "state": "NY",
+	        "postalCode": 10021
+	    },
+	    "phoneNumber": [
+	        {
+	            "type": "home",
+	            "number": "212 555-1234"
+	        },
+	        {
+	            "type": "fax",
+	            "number": "646 555-4567"
+	        }
+	    ]
+	}
