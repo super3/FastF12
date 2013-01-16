@@ -12,30 +12,26 @@ Requirements
 * Blender 2.65a - [Download Now](http://www.blender.org/download/get-blender/)
 * Python 3.2 - [Download Now](http://www.python.org/download/releases/3.2/)
 
-Compatibility 
+Summary
 -------
-The FastF12 tool is dependent on the current implementation of Blender's command line arguments. There have been slight changes in the number of commands between major Blender releases. This tool will follow the current implementation of command line arguments in Blender 2.65a as detailed by [this documentation](http://wiki.blender.org/index.php/Doc:2.6/Manual/Render/Command_Line).
+The FastF12 tool is dependent on the current implementation of Blender's command line arguments. There have been slight changes in the number of commands between major Blender releases. This tool will follow the current implementation of command line arguments in Blender 2.65a as detailed by [the official documentation](http://wiki.blender.org/index.php/Doc:2.6/Manual/Render/Command_Line).
 
-Sample JSON Config Files
--------
+The current supported command line arguments are:
+
+	blender [-b <dir><file> [-o <dir><file>][-F <format>] [-x [0|1]][-t <threads>][-S <name>][-f <frame>] [-s <frame> -e <frame> -a]] [[-P <scriptname> [-- <parameter>]]
+
+A JSON formatted config file, as sampled below, contains all the relevant fields to generate a command of the latter format.
+For single frame render, only the .blend file and frame to render are required. Likewise for an animation render, only the .blend file and the range of frames to render are required. All other fields are optional. A simple sample .job config file is below:
+
 	{
 	    "source": "default.blend",
-	    "lastName": "Smith",
-	    "age": 25,
-	    "address": {
-	        "streetAddress": "21 2nd Street",
-	        "city": "New York",
-	        "state": "NY",
-	        "postalCode": 10021
-	    },
-	    "phoneNumber": [
-	        {
-	            "type": "home",
-	            "number": "212 555-1234"
-	        },
-	        {
-	            "type": "fax",
-	            "number": "646 555-4567"
-	        }
-	    ]
+	    "output": "/render",
+	    "type": "Single",
+	    "frame": "1"
 	}
+
+This will produce the following command, which is then monitored, and run by the tool. 
+
+	blender -b default.blend -o /render -f 1
+
+Full documentation on the .job config files and their usage can be [found here](#).
