@@ -34,7 +34,7 @@ This will produce the following command, which is then monitored, and run by the
 
 	blender -b default.blend -o /render -f 1
 
-Job Files
+Job File
 -------
 All JSON field names are taken from the [Blender 2.5 Command Line Arguments Documentation](http://wiki.blender.org/index.php/Dev:2.5/Doc/Command_Line_Arguments). Type is the only special field, so that the tool can distinguish between an single frame render, and an animation render. 
 
@@ -43,30 +43,27 @@ All JSON field names are taken from the [Blender 2.5 Command Line Arguments Docu
 Currently FastF12 can complete two types of jobs. These and their minimum fields are detailed below. Any .job files without this basic information will not run. All other fields
 not listed in the minimum requirements are optional. 
 
-***Single Frame Render Requirements***-
-Renders a single frame. 
-
+***Single Frame Render Requirements*** - Renders a single frame. 
 * file 
 * type
 * frame
 
-***Animation Render Requirements***-
-Renders an animation. 
+***Animation Render Requirements*** - Renders an animation. 
 * file
 * type
 * frame-state
 * frame-end
 
-All JSON Fields
+Job File Fields
 -------
 
-* file
-* render-output
-* type
-* format
-* use-extension
-* threads
-* scene
-* frame
-* frame-start
-* frame-end
+* ***file*** - Relative file path to the .blend file
+* ***render-output*** - Directory to output the render results
+* ***type*** - Single Frame or Animation Render. Accepted Values: "Single" or "Animation"
+* ***format*** - Set the render format. See [Blender Command Line Documentation](http://wiki.blender.org/index.php/Doc:2.6/Manual/Render/Command_Line) for accepted values.
+* ***use-extension*** - Add or omit the file extension to the end of the file. Accepted Values: "True" or "False"
+* ***threads*** - Amount of threads to use for rendering
+* ***scene*** -Scene to use
+* ***frame*** - Frame to render
+* ***frame-start*** - Start frame in animation to render
+* ***frame-end*** - End frame in animation to render
