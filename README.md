@@ -24,9 +24,9 @@ A JSON formatted config file, as sampled below, contains all the relevant fields
 For single frame render, only the .blend file and frame to render are required. Likewise for an animation render, only the .blend file and the range of frames to render are required. All other fields are optional. A simple sample .job config file is below:
 
 	{
-	    "file": "default.blend",
+	    "path": "default.blend",
 	    "render-output": "/render",
-	    "type": "Single",
+	    "render-type": "Single",
 	    "frame": "1"
 	}
 
@@ -44,21 +44,21 @@ Currently FastF12 can complete two types of jobs. These and their minimum fields
 not listed in the minimum requirements are optional. 
 
 ***Single Frame Render Requirements*** - Renders a single frame. 
-* file 
-* type
+* path
+* render-type
 * frame
 
 ***Animation Render Requirements*** - Renders an animation. 
-* file
-* type
+* path
+* render-type
 * frame-state
 * frame-end
 
-## Job File Fields
+## All Fields
 
-* ***file*** - Relative file path to the .blend file
+* ***path*** - Relative file path to the .blend file
 * ***render-output*** - Directory to output the render results
-* ***type*** - Single Frame or Animation Render. Accepted Values: "Single" or "Animation"
+* ***render-type*** - Single Frame or Animation Render. Accepted Values: "Single" or "Animation"
 * ***format*** - Set the render format. See [Blender Command Line Documentation](http://wiki.blender.org/index.php/Doc:2.6/Manual/Render/Command_Line) for accepted values.
 * ***use-extension*** - Add or omit the file extension to the end of the file. Accepted Values: "True" or "False"
 * ***threads*** - Amount of threads to use for rendering

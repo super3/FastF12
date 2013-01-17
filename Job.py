@@ -27,27 +27,32 @@ class Job:
 	"""
 
 	# Constructor
-	def __init__(self, path, out_path, format, isAni, start, end, frame):
+	def __init__(self, path, render_output, render_type, format, use_extension, threads, scene, frame, frame_start, frame_end):
 		"""
 		Keyword Arguments:
-		path        -- Path to the .blend file.
-		out_path    -- Path to place the rendered files.
-		format      -- Set the render file format.
-		frame       -- Set frame to render.
-		isAni       -- Bool. Render animation instead of frame.
-		start       -- Start frame of the animation render.
-		end 	    -- End frame of the animation render. 
+		path - Relative file path to the .blend file
+		render-output - Directory to output the render results
+		render_type - Single Frame or Animation Render. Accepted Values: "Single" or "Animation"
+		format - Set the render format. See Blender Command Line Documentation for accepted values.
+		use-extension - Add or omit the file extension to the end of the file. Accepted Values: "True" or "False"
+		threads - Amount of threads to use for rendering
+		scene -Scene to use
+		frame - Frame to render
+		frame-start - Start frame in animation to render
+		frame-end - End frame in animation to render
 
 		"""
 
-		# Private Vars
-		self.path = path
-		self.out_path = out_path
-		self.format = format
-		self.frame = frame
-		self.isAni = isAni
-		self.start = start
-		self.end = end
+		# Private Vars, these will be checked later
+		self.path = str(path)
+		self.render_output = str(render_output)
+		self.render_type = str(render_type)
+		self.format = str(format)
+		self.use_extension = bool(use_extension)
+		self.threads = int(threads)
+		self.frame = int(frame)
+		self.frame_start = int(frame_start)
+		self.frame_end = int(frame_end)
 
 	# Error Checking
 	def validate(self):
@@ -56,17 +61,28 @@ class Job:
 		# Error Message List
 		errors = []
 
-		# Error Check Class Data
+		# Check .Blend File
 		if not os.path.isfile(self.path):
 			errors.append("Blend File Not Found.")
+
+		# Render Types
+		if self.render_type == "Single":
+			if not self.frame >= 1:
+				errors.append("Invalid frame number.")
+
+		elif self.render_type == "Animation":
+			if self.frame_end > self.frame_start):
+				errors.append("Invalid Animation Render Frames.")
+		else:
+			errors.append("Unsupported Render Type.")
+
+		# Check Optional Files
 		if not os.path.exists(self.out_path):
 			errors.append("Output Directory Not Found.")
 		if not self.checkFormats(self.format):
 			errors.append("Unsupported Render Format.")
-		if not isinstance(self.frame, int):
-			errors.append("Invalid Render Frame.")
-		if self.isAni and not (self.end > self.start):
-			errors.append("Invalid Animation Render Frames.")
+		if not self.threads >= 1:
+			errors.append("Invalid Thread Number.")
 
 		# Return Validation
 		if len(errors) <= 0:
@@ -101,17 +117,22 @@ class Job:
 
 		"""
 
-		cmd = "\"" + pathToBlender + "\""   # blender
-		cmd += " -b " + self.path 		    # -b <dir><file>
-		cmd += " -o " + self.out_path       # -o <dir><file>
-		cmd += " -F " + self.format         # -F <format>
+		cmd = "\"" + pathToBlender + "\""        # blender
+		cmd += " -b " + self.path 		         # -b <dir><file>
+		cmd += " -o " + self.render_output       # -o <dir><file>
+		cmd += " -F " + self.format              # -F <format>
+		cmd += " -x " + str(self.use_extension)  # -x [0|1]
+		cmd += " -t " + str(self.threads)		 # -t <threads>
+		cmd += " -S " + self.scene 			     # -S <name>
 
-		if not self.isAni:
-			cmd += " -f " + str(self.frame) # -f <frame>
+		if self.render_type == "Single":
+			cmd += " -f " + str(self.frame)		 # -f <frame>
 		else:
 			cmd += " -s " + str(self.start)
 			cmd += " -e " + str(self.end)
-			cmd += " -a "					# -s <frame> -e <frame> -a
+			cmd += " -a "						 # -s <frame> -e <frame> -a
+
+		# omiting script option for now
 
 		return cmd
 
@@ -124,8 +145,4 @@ class Job:
 
 # Main
 if __name__ == "__main__":
-	blend_path = "C:\\Users\\super_000\\Desktop\\default.blend"
-	out_path = "C:\\Users\\super_000\\Desktop\\test\\"
-	frame = 0
-	testjob = Job(blend_path, out_path, "PNG", False, 1, 50, frame)
-	testjob.run("C:\\Program Files\\Blender Foundation\\Blender\\blender.exe")
+	pass
