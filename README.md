@@ -38,7 +38,14 @@ Job Files
 -------
 All JSON file field names are taken from the [Blender 2.5 Command Line Arguments Documentation](http://wiki.blender.org/index.php/Dev:2.5/Doc/Command_Line_Arguments). Type is the only special field, so that the tool can distinguish between an single frame render, and an animation render. 
 
-###JSON Fields
+### JSON Fields
+
+Below is a list of the accepted fields in the .job config file. 
+
+#### Single Frame Render Requirements
+#### Animation Render Requirements
+
+
 
 * file
 * render-output
