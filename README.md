@@ -38,7 +38,7 @@ Job File
 -------
 All JSON field names are taken from the [Blender 2.5 Command Line Arguments Documentation](http://wiki.blender.org/index.php/Dev:2.5/Doc/Command_Line_Arguments). Type is the only special field, so that the tool can distinguish between an single frame render, and an animation render. 
 
-### Required Fields
+## Required Fields
 
 Currently FastF12 can complete two types of jobs. These and their minimum fields are detailed below. Any .job files without this basic information will not run. All other fields
 not listed in the minimum requirements are optional. 
@@ -54,8 +54,7 @@ not listed in the minimum requirements are optional.
 * frame-state
 * frame-end
 
-Job File Fields
--------
+## Job File Fields
 
 * ***file*** - Relative file path to the .blend file
 * ***render-output*** - Directory to output the render results
