@@ -1,0 +1,6 @@
+{
+    "path": "default.blend",
+    "render-output": "/render",
+    "render-type": "Single",
+    "frame": "1"
+}
