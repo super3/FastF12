@@ -1,5 +1,5 @@
 {
     "path": "default.blend",
-    "render-output": "/render/",
-    "render-type": "Single"
+    "render-type": "Single",
+    "render-output": "/render/"
 }

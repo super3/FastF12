@@ -24,9 +24,9 @@ A JSON formatted config file, as sampled below, contains all the relevant fields
 For single frame render, only the .blend file and frame to render are required. Likewise for an animation render, only the .blend file and the range of frames to render are required. All other fields are optional. A simple sample .job config file is below:
 
 	{
-	    "path": "default.blend",
-	    "render-output": "/render",
-	    "render-type": "Single"
+		"path": "default.blend",
+		"render-type": "Single",
+		"render-output": "/render/"
 	}
 
 This will produce the following command, which is then monitored, and run by the tool. 
