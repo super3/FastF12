@@ -57,12 +57,12 @@ not listed in the minimum requirements are optional.
 ## All Fields
 
 * ***path*** - Relative file path to the .blend file
-* ***render-output*** - Directory to output the render results
 * ***render-type*** - Single Frame or Animation Render. Accepted Values: "Single" or "Animation"
+* ***render-output*** - Directory to output the render results
+* ***frame*** - Frame to render
+* ***frame-start*** - Start frame in animation to render
+* ***frame-end*** - End frame in animation to render
 * ***format*** - Set the render format. See [Blender Command Line Documentation](http://wiki.blender.org/index.php/Doc:2.6/Manual/Render/Command_Line) for accepted values.
 * ***use-extension*** - Add or omit the file extension to the end of the file. Accepted Values: "True" or "False"
 * ***threads*** - Amount of threads to use for rendering
 * ***scene*** -Scene to use
-* ***frame*** - Frame to render
-* ***frame-start*** - Start frame in animation to render
-* ***frame-end*** - End frame in animation to render

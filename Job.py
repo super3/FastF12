@@ -59,6 +59,7 @@ class Job:
 		self.format = self.checkStr(format)
 		self.use_extension = self.checkBool(use_extension)
 		self.threads = self.checkInt(threads)
+		self.scene = self.checkStr(format)
 
 	def checkInt(self, var):
 		if var == None:
