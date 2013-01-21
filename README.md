@@ -26,8 +26,7 @@ For single frame render, only the .blend file and frame to render are required. 
 	{
 	    "path": "default.blend",
 	    "render-output": "/render",
-	    "render-type": "Single",
-	    "frame": "1"
+	    "render-type": "Single"
 	}
 
 This will produce the following command, which is then monitored, and run by the tool. 
@@ -46,12 +45,13 @@ not listed in the minimum requirements are optional.
 ***Single Frame Render Requirements*** - Renders a single frame. 
 * path
 * render-type
-* frame
+* render-output
 
 ***Animation Render Requirements*** - Renders an animation. 
 * path
 * render-type
-* frame-state
+* render-output
+* frame-start
 * frame-end
 
 ## All Fields

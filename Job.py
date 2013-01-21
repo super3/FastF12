@@ -14,6 +14,8 @@
 
 # Imports
 import os
+import json
+from pprint import pprint
 
 # Job Class
 class Job:
@@ -27,7 +29,7 @@ class Job:
 	"""
 
 	# Constructor
-	def __init__(self, path, render_output, render_type, format, use_extension, threads, scene, frame, frame_start, frame_end):
+	def __init__(self, path, render_type, render_output, frame = 1, frame_start = 1, frame_end = 250, format = None, use_extension = None, threads = None, scene = None):
 		"""
 		Keyword Arguments:
 		path - Relative file path to the .blend file
@@ -43,16 +45,35 @@ class Job:
 
 		"""
 
-		# Private Vars, these will be checked later
+		# Needed
 		self.path = str(path)
-		self.render_output = str(render_output)
 		self.render_type = str(render_type)
-		self.format = str(format)
-		self.use_extension = bool(use_extension)
-		self.threads = int(threads)
-		self.frame = int(frame)
-		self.frame_start = int(frame_start)
-		self.frame_end = int(frame_end)
+		self.render_output = str(render_output)
+		
+		# Needed's Arguments
+		self.frame = self.checkInt(frame)
+		self.frame_start = self.checkInt(frame_start)
+		self.frame_end = self.checkInt(frame_end)
+
+		# Optional 
+		self.format = self.checkStr(format)
+		self.use_extension = self.checkBool(use_extension)
+		self.threads = self.checkInt(threads)
+
+	def checkInt(self, var):
+		if var == None:
+			return None
+		return int(var)
+
+	def checkBool(self, var):
+		if var == None:
+			return None
+		return bool(var)
+
+	def checkStr(self, var):
+		if var == None:
+			return None
+		return str(var) 
 
 	# Error Checking
 	def validate(self):
@@ -71,17 +92,17 @@ class Job:
 				errors.append("Invalid frame number.")
 
 		elif self.render_type == "Animation":
-			if self.frame_end > self.frame_start):
+			if self.frame_end > self.frame_start:
 				errors.append("Invalid Animation Render Frames.")
 		else:
 			errors.append("Unsupported Render Type.")
 
 		# Check Optional Files
-		if not os.path.exists(self.out_path):
-			errors.append("Output Directory Not Found.")
-		if not self.checkFormats(self.format):
+		# if not os.path.exists(os.getcwd() + self.render_output):
+		# 	errors.append("Output Directory Not Found.")
+		if not self.format == None and not self.checkFormats(self.format):
 			errors.append("Unsupported Render Format.")
-		if not self.threads >= 1:
+		if not self.threads == None and not self.threads >= 1:
 			errors.append("Invalid Thread Number.")
 
 		# Return Validation
@@ -117,21 +138,21 @@ class Job:
 
 		"""
 
-		cmd = "\"" + pathToBlender + "\""        # blender
-		cmd += " -b " + self.path 		         # -b <dir><file>
-		cmd += " -o " + self.render_output       # -o <dir><file>
-		cmd += " -F " + self.format              # -F <format>
-		cmd += " -x " + str(self.use_extension)  # -x [0|1]
-		cmd += " -t " + str(self.threads)		 # -t <threads>
-		cmd += " -S " + self.scene 			     # -S <name>
+		cmd = "\"" + pathToBlender + "\""        			# blender
+		cmd += " -b " + self.path 		        		 	# -b <dir><file>
+		cmd += " -o " + os.getcwd() + self.render_output    # -o <dir><file>
+		# cmd += " -F " + self.format             		    # -F <format>
+		# cmd += " -x " + str(self.use_extension)           # -x [0|1]
+		# cmd += " -t " + str(self.threads)		            # -t <threads>
+		# cmd += " -S " + self.scene 			            # -S <name>
 
 		if self.render_type == "Single":
-			cmd += " -f " + str(self.frame)		 # -f <frame>
+			cmd += " -f " + str(self.frame)		            # -f <frame>
 		else:
 			cmd += " -s " + str(self.start)
 			cmd += " -e " + str(self.end)
-			cmd += " -a "						 # -s <frame> -e <frame> -a
-
+			cmd += " -a "						            # -s <frame> -e <frame> -a
+ 
 		# omiting script option for now
 
 		return cmd
@@ -145,4 +166,8 @@ class Job:
 
 # Main
 if __name__ == "__main__":
-	pass
+	# Load in JSON
+	job_file=open('default.job')
+	data = json.load(job_file)
+	test_job = Job( data["path"], data["render-type"], data["render-output"])
+	test_job.run("C:\\Program Files\\Blender Foundation\\Blender\\blender.exe")
