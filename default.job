@@ -1,5 +1,7 @@
 {
-    "path": "default.blend",
-    "render-type": "Single",
-    "render-output": "/render/"
+    "path": "C:\\Users\\shawn\\Desktop\\FastF12\\default.blend",
+    "render-type": "animation",
+    "render-output": "C:\\Users\\shawn\\Desktop\\FastF12\\render\\",
+	"frame": 1,
+	"frame-end": 3
 }
